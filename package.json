@@ -1,0 +1,54 @@
+{
+  "name": "rmc-pull-to-refresh",
+  "version": "0.1.0",
+  "description": "m-pull-to-refresh ui component for react",
+  "keywords": [
+    "react",
+    "react-component",
+    "react-m-pull-to-refresh",
+    "m-pull-to-refresh"
+  ],
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "homepage": "https://github.com/react-component/m-pull-to-refresh",
+  "author": "hualei5280@gmail.com",
+  "repository": "react-component/m-pull-to-refresh",
+  "bugs": "https://github.com/react-component/m-pull-to-refresh/issues",
+  "files": [
+    "lib",
+    "assets/*.css"
+  ],
+  "license": "MIT",
+  "main": "./lib/index",
+  "config": {
+    "port": 8899
+  },
+  "scripts": {
+    "build": "rc-tools run build",
+    "gh-pages": "rc-tools run gh-pages",
+    "start": "rc-tools run server",
+    "pub": "rc-tools run pub",
+    "lint": "rc-tools run lint",
+    "karma": "rc-tools run karma",
+    "saucelabs": "rc-tools run saucelabs",
+    "test": "rc-tools run test",
+    "chrome-test": "rc-tools run chrome-test",
+    "coverage": "rc-tools run coverage"
+  },
+  "devDependencies": {
+    "antd": "^1.2.1",
+    "expect.js": "0.3.x",
+    "pre-commit": "1.x",
+    "rc-tools": "5.x",
+    "react": "0.14.x",
+    "react-addons-test-utils": "0.14.x",
+    "react-dom": "0.14.x"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "hammerjs": "^2.0.8"
+  }
+}
