@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rmc-pull-to-refresh@0.1.0</title>
+  <title>simple.js - example - rmc-pull-to-refresh@0.2.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -258,9 +258,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-pull-to-refresh@0.1.0</h1>
+      <h1>rmc-pull-to-refresh@0.2.0</h1>
 
-      <p>m-pull-to-refresh ui component for react</p>
+      <p>React Mobile Pull To Refresh Component</p>
     </div>
     <div class="example" id="__react-content"></div>
 
@@ -270,52 +270,92 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> MPullToRefresh <span class="hljs-keyword">from</span> <span class="hljs-string">'rmc-pull-to-refresh'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-<span class="hljs-keyword">import</span> { Icon } <span class="hljs-keyword">from</span> <span class="hljs-string">'antd'</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-string">'antd/dist/antd.css'</span>;
+<span class="hljs-keyword">import</span> Icon <span class="hljs-keyword">from</span> <span class="hljs-string">'antd/lib/icon'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'antd/lib/icon/style/css'</span>;
 
 <span class="hljs-keyword">let</span> count = <span class="hljs-number">1</span>;
-<span class="hljs-keyword">let</span> App = React.createClass({
+<span class="hljs-keyword">const</span> App = React.createClass({
   getInitialState() {
     <span class="hljs-keyword">return</span> {
       items: [
-        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{'item-'</span> + <span class="hljs-attribute">count</span>}&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-      ]</span>
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{`item-${count}`}</span>&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
+      ],
     };
   },
-  handleRefresh(resolve, reject) {
-    <span class="hljs-keyword">let</span> self = <span class="hljs-keyword">this</span>;
-    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      self.addItem() ? resolve() : reject();
-    }, <span class="hljs-number">2500</span>);
+  loadingFunction() {
+    return new Promise((resolve, reject) =&gt; {
+      setTimeout(() =&gt; {
+        if (this.addItem()) {
+          resolve();
+        } else {
+          reject();
+        }
+      }, 2500);
+    });
   },
   addItem() {
-    <span class="hljs-keyword">this</span>.state.items.push(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{'item-'</span> + <span class="hljs-attribute">count</span>}&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+    this.state.items.push(<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{`item-${count}`}</span>&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
     <span class="hljs-keyword">this</span>.setState({
-      items: <span class="hljs-keyword">this</span>.state.items
+      items: <span class="hljs-keyword">this</span>.state.items,
     });
     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   },
   render() {
     <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">MPullToRefresh</span> <span class="hljs-attribute">onRefresh</span>=<span class="hljs-value">{this.handleRefresh}</span>
-        <span class="hljs-attribute">icon</span>=<span class="hljs-value">{&lt;Icon</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"down"</span> /&gt;</span>}
-        loading={<span class="hljs-tag">&lt;<span class="hljs-title">Icon</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"loading"</span> /&gt;</span>}
-        distanceToRefresh="40"
-        style={{
-          textAlign: 'center'
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">style</span> <span class="hljs-attribute">dangerouslySetInnerHTML</span>=<span class="hljs-value">{{</span>
+          <span class="hljs-attribute">__html:</span> `
+            <span class="hljs-attribute">.rmc-pull-to-refresh</span> <span class="hljs-attribute">.pull</span> {
+                <span class="hljs-attribute">display:</span> <span class="hljs-attribute">block</span>;
+             }
+            <span class="hljs-attribute">.rmc-pull-to-refresh</span> <span class="hljs-attribute">.release</span> {
+              <span class="hljs-attribute">display:</span> <span class="hljs-attribute">none</span>;
+            }
+            <span class="hljs-attribute">.rmc-pull-to-refresh.rmc-pull-to-refresh-refresh</span> <span class="hljs-attribute">.pull</span> {
+                <span class="hljs-attribute">display:</span> <span class="hljs-attribute">none</span>;
+            }
+            <span class="hljs-attribute">.rmc-pull-to-refresh.rmc-pull-to-refresh-refresh</span> <span class="hljs-attribute">.release</span> {
+              <span class="hljs-attribute">display:</span> <span class="hljs-attribute">block</span>;
+            }
+          `,
         }}
-      &gt;
-        <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>Pull down to refresh<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-          {this.state.items}
-        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">MPullToRefresh</span>&gt;</span>
-    )</span>;
-  }
+        /&gt;</span><span class="css">
+        &lt;<span class="hljs-tag">MPullToRefresh</span>
+          <span class="hljs-tag">loadingFunction</span>=<span class="hljs-rules">{this.loadingFunction}</span>
+          <span class="hljs-tag">icon</span>=<span class="hljs-rules">{
+            &lt;div style={{ <span class="hljs-rule"><span class="hljs-attribute">marginTop</span>:<span class="hljs-value"> <span class="hljs-number">15</span> </span></span></span>}}&gt;
+            &lt;<span class="hljs-tag">div</span> <span class="hljs-tag">className</span>="<span class="hljs-tag">pull</span>"&gt;
+            &lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">down</span>" /&gt;  <span class="hljs-tag">pull</span> <span class="hljs-tag">down</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>
+            &lt;/<span class="hljs-tag">div</span>&gt;
+            &lt;<span class="hljs-tag">div</span> <span class="hljs-tag">className</span>="<span class="hljs-tag">release</span>"&gt;
+             &lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">up</span>" /&gt; <span class="hljs-tag">release</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>
+            &lt;/<span class="hljs-tag">div</span>&gt;
+            &lt;/<span class="hljs-tag">div</span>&gt;
+          }
+          <span class="hljs-tag">loading</span>=<span class="hljs-rules">{&lt;div style={{ <span class="hljs-rule"><span class="hljs-attribute">marginTop</span>:<span class="hljs-value"> <span class="hljs-number">15</span> </span></span></span>}}&gt;&lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">loading</span>" /&gt; <span class="hljs-tag">Loading</span>&lt;/<span class="hljs-tag">div</span>&gt;}
+          <span class="hljs-tag">distanceToRefresh</span>=<span class="hljs-rules">{40}</span>
+          <span class="hljs-tag">contentStyle</span>=<span class="hljs-rules">{{
+            <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-string">'600px'</span>,
+          </span></span></span>}}
+          <span class="hljs-tag">style</span>=<span class="hljs-rules">{{
+            <span class="hljs-rule"><span class="hljs-attribute">textAlign</span>:<span class="hljs-value"> <span class="hljs-string">'center'</span>,
+            width: <span class="hljs-number">600</span>,
+            margin: <span class="hljs-string">'0 auto'</span>,
+            border: <span class="hljs-string">'1px solid red'</span>,
+          </span></span></span>}}
+        &gt;
+          &lt;<span class="hljs-tag">h3</span>&gt;<span class="hljs-tag">Pull</span> <span class="hljs-tag">down</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>&lt;/<span class="hljs-tag">h3</span>&gt;
+          &lt;<span class="hljs-tag">div</span>&gt;
+            <span class="hljs-rules">{this.state.items}</span>
+          &lt;/<span class="hljs-tag">div</span>&gt;
+        &lt;/<span class="hljs-tag">MPullToRefresh</span>&gt;
+      &lt;/<span class="hljs-tag">div</span>&gt;
+    )</span></span>;
+  },
 });
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>, document.getElementById('__react-content'));
-</span></code></pre></div>
+ReactDOM.render(<span class="xml"><span class="css">&lt;<span class="hljs-tag">App</span> /&gt;, <span class="hljs-tag">document</span><span class="hljs-class">.getElementById</span>('__<span class="hljs-tag">react-content</span>'));
+</span></span></code></pre></div>
   </div>
   <a href="https://github.com/react-component/m-pull-to-refresh">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
