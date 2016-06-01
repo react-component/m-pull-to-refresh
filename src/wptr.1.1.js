@@ -44,6 +44,7 @@ export default function WebPullToRefresh() {
     options.containerEl.classList.add(`${options.prefixCls}-reset`);
     options.containerEl.addEventListener('transitionend', bodyClassRemove, false);
   }
+
   /**
    * Position content and refresh elements to show that loading is taking place.
    */
@@ -64,6 +65,7 @@ export default function WebPullToRefresh() {
       loadingPromise.then(_doReset);
     }, 1000);
   }
+
   /**
    * Initialize pull to refresh, hammer, and bind pan events.
    *
@@ -154,13 +156,14 @@ export default function WebPullToRefresh() {
     _setContentPan();
     _setBodyClass();
   }
+
   /**
    * Determine how to animate and position elements when the panend event fires.
    *
    * @param {object} e - Event object
    */
   function onPanEnd(e) {
-    if (!pan.enabled) {
+    if (!pan.enabled || pan.distance === 0) {
       return;
     }
 
