@@ -62,7 +62,7 @@ export default function WebPullToRefresh() {
     // For UX continuity, make sure we show loading for at least one second before resetting
     setTimeout(() => {
       // Once actual loading is complete, reset pull to refresh
-      loadingPromise.then(_doReset);
+      loadingPromise.then(_doReset, _doReset);
     }, 1000);
   }
 
