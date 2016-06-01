@@ -113,7 +113,7 @@ webpackJsonp([0,1],[
 	          },
 	          style: {
 	            textAlign: 'center',
-	            width: 600,
+	            width: '90%',
 	            margin: '0 auto',
 	            border: '1px solid red'
 	          }
