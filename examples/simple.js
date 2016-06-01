@@ -19972,7 +19972,7 @@ webpackJsonp([0,1],[
 	    // For UX continuity, make sure we show loading for at least one second before resetting
 	    setTimeout(function () {
 	      // Once actual loading is complete, reset pull to refresh
-	      loadingPromise.then(_doReset);
+	      loadingPromise.then(_doReset, _doReset);
 	    }, 1000);
 	  }
 	
