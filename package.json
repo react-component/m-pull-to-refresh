@@ -1,19 +1,17 @@
 {
   "name": "rmc-pull-to-refresh",
-  "version": "0.1.0",
-  "description": "m-pull-to-refresh ui component for react",
+  "version": "0.2.0",
+  "description": "React Mobile Pull To Refresh Component",
   "keywords": [
     "react",
     "react-component",
-    "react-m-pull-to-refresh",
-    "m-pull-to-refresh"
+    "react-pull-to-refresh",
+    "pull-to-refresh"
   ],
   "engines": {
     "node": ">=4.0.0"
   },
   "homepage": "https://github.com/react-component/m-pull-to-refresh",
-  "author": "hualei5280@gmail.com",
-  "repository": "react-component/m-pull-to-refresh",
   "bugs": "https://github.com/react-component/m-pull-to-refresh/issues",
   "files": [
     "lib",
@@ -49,6 +47,6 @@
     "lint"
   ],
   "dependencies": {
-    "hammerjs": "^2.0.8"
+    "react-hammerjs": "~0.4.6"
   }
 }

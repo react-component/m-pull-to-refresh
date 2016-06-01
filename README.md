@@ -1,7 +1,7 @@
 # rmc-pull-to-refresh
 ---
 
-React MPullToRefresh Component. modify from [react-pull-to-refresh](https://github.com/bryaneaton13/react-pull-to-refresh).
+React Mobile PullToRefresh Component.
 
 
 [![NPM version][npm-image]][npm-url]
@@ -40,31 +40,33 @@ npm start
 
 http://localhost:8899/examples/
 
-
 online example: http://react-component.github.io/m-pull-to-refresh/
 
 
 ## install
 
-
 [![rmc-pull-to-refresh](https://nodei.co/npm/rmc-pull-to-refresh.png)](https://npmjs.org/package/rmc-pull-to-refresh)
 
 
 ## Usage
+
 see example
 
 ## API
 
+for details see: https://github.com/apeatling/web-pull-to-refresh
+
 ### props
+
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-|className | additional css class of root dom node | String |  |
-|prefixCls | prefix class | String | 'rmc-pull-to-refresh' |
+| className | additional css class of root dom node | String |  |
+| prefixCls | prefix class | String | 'rmc-pull-to-refresh' |
 | icon   | arrow element   | React element |  - |
 | loading   | loading element   | React element |  - |
 | distanceToRefresh   |   distanceToRefresh    | number |    70  |
 | resistance   |    resistance  | number |    2.5  |
-| onRefresh   |   refresh fired   | function, required |  -  |
+| loadingFunction   |  return a promise   | function, required |  -  |
 
 
 ## Test Case
