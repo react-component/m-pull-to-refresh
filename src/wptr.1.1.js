@@ -185,7 +185,8 @@ export default function WebPullToRefresh() {
   function onPan(e) {
     if (e.additionalEvent === 'pandown') {
       onPanDown(e);
-    } else {
+    }
+    if (e.additionalEvent === 'panup') {
       onPanUp(e);
     }
   }
