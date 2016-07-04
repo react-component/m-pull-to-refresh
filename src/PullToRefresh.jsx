@@ -22,6 +22,7 @@ export default class PullToRefresh extends React.Component {
     distanceToRefresh: PropTypes.number,
     resistance: PropTypes.number,
     children: PropTypes.any,
+    hammerOptions: PropTypes.object,
   };
 
   static defaultProps = {
@@ -47,7 +48,7 @@ export default class PullToRefresh extends React.Component {
   render() {
     const {
       prefixCls, children, icon, loading, disabled, className = '',
-      style, contentStyle, contentClassName = '',
+      style, contentStyle, contentClassName = '', hammerOptions = {},
     } = this.props;
     const events = disabled ? emptyEvents : this.webPullToRefresh.events;
     return (
@@ -56,7 +57,7 @@ export default class PullToRefresh extends React.Component {
           <div className={`${prefixCls}-ptr-icon`}>{icon}</div>
           <div className={`${prefixCls}-ptr-loading`}>{loading}</div>
         </div>
-        <Hammer vertical {...events}>
+        <Hammer vertical {...events} options={hammerOptions}>
           <div
             ref="content"
             className={`${prefixCls}-content ${contentClassName}`}

@@ -67,6 +67,7 @@ for details see: https://github.com/apeatling/web-pull-to-refresh
 | distanceToRefresh   |   distanceToRefresh    | number |    70  |
 | resistance   |    resistance  | number |    2.5  |
 | loadingFunction   |  return a promise   | function, required |  -  |
+| hammerOptions   |  be used to configure the [Hammer manager](http://hammerjs.github.io/api/). These properties will be merged with the default ones.(ref: [react-hammerjs](https://github.com/JedWatson/react-hammerjs))   | object |  -  |
 
 
 ## Test Case

@@ -77,6 +77,9 @@ const App = React.createClass({
             margin: '0 auto',
             border: '1px solid red',
           }}
+          hammerOptions={{
+            touchAction: 'auto',
+          }}
         >
           <h3>Pull down to refresh</h3>
           <div>
