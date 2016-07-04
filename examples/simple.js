@@ -108,6 +108,7 @@ webpackJsonp([0,1],[
 	            ' Loading'
 	          ),
 	          distanceToRefresh: 40,
+	          contentClassName: 'for-test',
 	          contentStyle: {
 	            height: '600px'
 	          },
