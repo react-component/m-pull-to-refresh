@@ -116,6 +116,9 @@ webpackJsonp([0,1],[
 	            width: '90%',
 	            margin: '0 auto',
 	            border: '1px solid red'
+	          },
+	          hammerOptions: {
+	            touchAction: 'auto'
 	          }
 	        },
 	        _react2.default.createElement(
@@ -238,6 +241,8 @@ webpackJsonp([0,1],[
 	    var contentStyle = _props.contentStyle;
 	    var _props$contentClassNa = _props.contentClassName;
 	    var contentClassName = _props$contentClassNa === undefined ? '' : _props$contentClassNa;
+	    var _props$hammerOptions = _props.hammerOptions;
+	    var hammerOptions = _props$hammerOptions === undefined ? {} : _props$hammerOptions;
 	
 	    var events = disabled ? emptyEvents : this.webPullToRefresh.events;
 	    return _react2.default.createElement(
@@ -259,7 +264,7 @@ webpackJsonp([0,1],[
 	      ),
 	      _react2.default.createElement(
 	        _reactHammerjs2.default,
-	        _extends({ vertical: true }, events),
+	        _extends({ vertical: true }, events, { options: hammerOptions }),
 	        _react2.default.createElement(
 	          'div',
 	          {
@@ -288,7 +293,8 @@ webpackJsonp([0,1],[
 	  contentStyle: _react.PropTypes.object,
 	  distanceToRefresh: _react.PropTypes.number,
 	  resistance: _react.PropTypes.number,
-	  children: _react.PropTypes.any
+	  children: _react.PropTypes.any,
+	  hammerOptions: _react.PropTypes.object
 	};
 	PullToRefresh.defaultProps = {
 	  prefixCls: 'rmc-pull-to-refresh'
