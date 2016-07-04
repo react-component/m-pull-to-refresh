@@ -62,6 +62,8 @@ for details see: https://github.com/apeatling/web-pull-to-refresh
 |----------|----------------|----------|--------------|
 | className | additional css class of root dom node | String |  |
 | prefixCls | prefix class | String | 'rmc-pull-to-refresh' |
+| contentClassName | contentClassName | String | - |
+| contentStyle | contentStyle | object | - |
 | icon   | arrow element   | React element |  - |
 | loading   | loading element   | React element |  - |
 | distanceToRefresh   |   distanceToRefresh    | number |    70  |

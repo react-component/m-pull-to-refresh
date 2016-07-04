@@ -68,6 +68,7 @@ const App = React.createClass({
           }
           loading={<div style={{ marginTop: 15 }}><Icon type="loading" /> Loading</div>}
           distanceToRefresh={40}
+          contentClassName="for-test"
           contentStyle={{
             height: '600px',
           }}
