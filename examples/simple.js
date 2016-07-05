@@ -42,7 +42,7 @@ webpackJsonp([0,1],[
 	    return {
 	      items: [_react2.default.createElement(
 	        'div',
-	        { key: 'item-' + count },
+	        { key: 'item-' + count, style: { height: 50 } },
 	        'Item ',
 	        count++
 	      )]
@@ -58,13 +58,13 @@ webpackJsonp([0,1],[
 	        } else {
 	          reject();
 	        }
-	      }, 2500);
+	      }, 500);
 	    });
 	  },
 	  addItem: function addItem() {
 	    this.state.items.push(_react2.default.createElement(
 	      'div',
-	      { key: 'item-' + count },
+	      { key: 'item-' + count, style: { height: 100 } },
 	      'Item ',
 	      count++
 	    ));
@@ -110,7 +110,7 @@ webpackJsonp([0,1],[
 	          distanceToRefresh: 40,
 	          contentClassName: 'for-test',
 	          contentStyle: {
-	            height: '600px'
+	            minHeight: 300
 	          },
 	          style: {
 	            textAlign: 'center',
@@ -119,7 +119,12 @@ webpackJsonp([0,1],[
 	            border: '1px solid red'
 	          },
 	          hammerOptions: {
-	            touchAction: 'auto'
+	            touchAction: 'auto',
+	            recognizers: {
+	              pan: {
+	                threshold: 100
+	              }
+	            }
 	          }
 	        },
 	        _react2.default.createElement(
@@ -129,7 +134,7 @@ webpackJsonp([0,1],[
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { ref: 'c', style: { height: 300, overflow: 'auto' } },
 	          this.state.items
 	        )
 	      )

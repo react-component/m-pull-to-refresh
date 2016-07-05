@@ -278,7 +278,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   getInitialState() {
     <span class="hljs-keyword">return</span> {
       items: [
-        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{`item-${count}`}</span>&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{`item-${count}`}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">50</span> }}&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
       ],
     };
   },
@@ -290,11 +290,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         } else {
           reject();
         }
-      }, 2500);
+      }, 500);
     });
   },
   addItem() {
-    this.state.items.push(<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{`item-${count}`}</span>&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
+    this.state.items.push(<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{`item-${count}`}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">100</span> }}&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
     <span class="hljs-keyword">this</span>.setState({
       items: <span class="hljs-keyword">this</span>.state.items,
     });
@@ -336,7 +336,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-tag">distanceToRefresh</span>=<span class="hljs-rules">{40}</span>
           <span class="hljs-tag">contentClassName</span>="<span class="hljs-tag">for-test</span>"
           <span class="hljs-tag">contentStyle</span>=<span class="hljs-rules">{{
-            <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-string">'600px'</span>,
+            <span class="hljs-rule"><span class="hljs-attribute">minHeight</span>:<span class="hljs-value"> <span class="hljs-number">300</span>,
           </span></span></span>}}
           <span class="hljs-tag">style</span>=<span class="hljs-rules">{{
             <span class="hljs-rule"><span class="hljs-attribute">textAlign</span>:<span class="hljs-value"> <span class="hljs-string">'center'</span>,
@@ -346,10 +346,15 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           </span></span></span>}}
           <span class="hljs-tag">hammerOptions</span>=<span class="hljs-rules">{{
             <span class="hljs-rule"><span class="hljs-attribute">touchAction</span>:<span class="hljs-value"> <span class="hljs-string">'auto'</span>,
-          </span></span></span>}}
+            recognizers: {
+              pan: {
+                threshold: <span class="hljs-number">100</span>
+              </span></span></span>}
+            }
+          }}
         &gt;
           &lt;<span class="hljs-tag">h3</span>&gt;<span class="hljs-tag">Pull</span> <span class="hljs-tag">down</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>&lt;/<span class="hljs-tag">h3</span>&gt;
-          &lt;<span class="hljs-tag">div</span>&gt;
+          &lt;<span class="hljs-tag">div</span> <span class="hljs-tag">ref</span>="<span class="hljs-tag">c</span>" <span class="hljs-tag">style</span>=<span class="hljs-rules">{{ <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">300</span>, overflow: <span class="hljs-string">'auto'</span> </span></span></span>}}&gt;
             <span class="hljs-rules">{this.state.items}</span>
           &lt;/<span class="hljs-tag">div</span>&gt;
         &lt;/<span class="hljs-tag">MPullToRefresh</span>&gt;
