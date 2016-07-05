@@ -12,7 +12,7 @@ const App = React.createClass({
   getInitialState() {
     return {
       items: [
-        <div key={`item-${count}`}>Item {count++}</div>,
+        <div key={`item-${count}`} style={{ height: 50 }}>Item {count++}</div>,
       ],
     };
   },
@@ -24,11 +24,11 @@ const App = React.createClass({
         } else {
           reject();
         }
-      }, 2500);
+      }, 500);
     });
   },
   addItem() {
-    this.state.items.push(<div key={`item-${count}`}>Item {count++}</div>);
+    this.state.items.push(<div key={`item-${count}`} style={{ height: 100 }}>Item {count++}</div>);
     this.setState({
       items: this.state.items,
     });
@@ -70,7 +70,7 @@ const App = React.createClass({
           distanceToRefresh={40}
           contentClassName="for-test"
           contentStyle={{
-            height: '600px',
+            minHeight: 300,
           }}
           style={{
             textAlign: 'center',
@@ -80,10 +80,15 @@ const App = React.createClass({
           }}
           hammerOptions={{
             touchAction: 'auto',
+            recognizers: {
+              pan: {
+                threshold: 100
+              }
+            }
           }}
         >
           <h3>Pull down to refresh</h3>
-          <div>
+          <div ref="c" style={{ height: 300, overflow: 'auto' }}>
             {this.state.items}
           </div>
         </MPullToRefresh>
