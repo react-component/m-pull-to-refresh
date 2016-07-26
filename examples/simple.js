@@ -82,9 +82,9 @@ const App = React.createClass({
             touchAction: 'auto',
             recognizers: {
               pan: {
-                threshold: 100
-              }
-            }
+                threshold: 100,
+              },
+            },
           }}
         >
           <h3>Pull down to refresh</h3>

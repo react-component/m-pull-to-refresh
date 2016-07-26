@@ -57,7 +57,7 @@ export default class PullToRefresh extends React.Component {
           <div className={`${prefixCls}-ptr-icon`}>{icon}</div>
           <div className={`${prefixCls}-ptr-loading`}>{loading}</div>
         </div>
-        <Hammer vertical {...events} options={hammerOptions}>
+        <Hammer direction="DIRECTION_ALL" {...events} options={hammerOptions}>
           <div
             ref="content"
             className={`${prefixCls}-content ${contentClassName}`}
