@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - rmc-pull-to-refresh@0.4.0</title>
+  <title>simple.js - example - rmc-pull-to-refresh@0.4.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -258,7 +258,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-pull-to-refresh@0.4.0</h1>
+      <h1>rmc-pull-to-refresh@0.4.1</h1>
 
       <p>React Mobile Pull To Refresh Component</p>
     </div>
@@ -281,17 +281,6 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{`item-${count}`}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">height:</span> <span class="hljs-attribute">50</span> }}&gt;</span>Item {count++}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
       ],
     };
-  },
-  onPan(e) {
-    if (document.body.scrollTop &gt; 5 &amp;&amp; e.additionalEvent === 'pandown') {
-      return false;
-    }
-    return true;
-    // return new Promise((resolve, reject) =&gt; {
-    //   setTimeout(() =&gt; {
-    //     resolve();
-    //   }, 500);
-    // });
   },
   loadingFunction() {
     return new Promise((resolve, reject) =&gt; {
@@ -335,20 +324,20 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
           <span class="hljs-tag">loadingFunction</span>=<span class="hljs-rules">{this.loadingFunction}</span>
           <span class="hljs-tag">icon</span>=<span class="hljs-rules">{
             &lt;div style={{ <span class="hljs-rule"><span class="hljs-attribute">marginTop</span>:<span class="hljs-value"> <span class="hljs-number">15</span> </span></span></span>}}&gt;
-            &lt;<span class="hljs-tag">div</span> <span class="hljs-tag">className</span>="<span class="hljs-tag">pull</span>"&gt;
-            &lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">down</span>" /&gt;  <span class="hljs-tag">pull</span> <span class="hljs-tag">down</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>
-            &lt;/<span class="hljs-tag">div</span>&gt;
-            &lt;<span class="hljs-tag">div</span> <span class="hljs-tag">className</span>="<span class="hljs-tag">release</span>"&gt;
-             &lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">up</span>" /&gt; <span class="hljs-tag">release</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>
-            &lt;/<span class="hljs-tag">div</span>&gt;
+              &lt;<span class="hljs-tag">div</span> <span class="hljs-tag">className</span>="<span class="hljs-tag">pull</span>"&gt;
+                &lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">down</span>"/&gt; <span class="hljs-tag">pull</span> <span class="hljs-tag">down</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>
+              &lt;/<span class="hljs-tag">div</span>&gt;
+              &lt;<span class="hljs-tag">div</span> <span class="hljs-tag">className</span>="<span class="hljs-tag">release</span>"&gt;
+                &lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">up</span>"/&gt; <span class="hljs-tag">release</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>
+              &lt;/<span class="hljs-tag">div</span>&gt;
             &lt;/<span class="hljs-tag">div</span>&gt;
           }
-          <span class="hljs-tag">loading</span>=<span class="hljs-rules">{&lt;div style={{ <span class="hljs-rule"><span class="hljs-attribute">marginTop</span>:<span class="hljs-value"> <span class="hljs-number">15</span> </span></span></span>}}&gt;&lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">loading</span>" /&gt; <span class="hljs-tag">Loading</span>&lt;/<span class="hljs-tag">div</span>&gt;}
+          <span class="hljs-tag">loading</span>=<span class="hljs-rules">{&lt;div style={{ <span class="hljs-rule"><span class="hljs-attribute">marginTop</span>:<span class="hljs-value"> <span class="hljs-number">15</span> </span></span></span>}}&gt;&lt;<span class="hljs-tag">Icon</span> <span class="hljs-tag">type</span>="<span class="hljs-tag">loading</span>"/&gt; <span class="hljs-tag">Loading</span>&lt;/<span class="hljs-tag">div</span>&gt;}
           <span class="hljs-tag">distanceToRefresh</span>=<span class="hljs-rules">{40}</span>
           <span class="hljs-tag">className</span>="<span class="hljs-tag">forTest</span>"
           <span class="hljs-tag">contentClassName</span>="<span class="hljs-tag">for-test</span>"
           <span class="hljs-tag">contentStyle</span>=<span class="hljs-rules">{{
-            <span class="hljs-rule"><span class="hljs-attribute">minHeight</span>:<span class="hljs-value"> <span class="hljs-number">300</span>,
+            <span class="hljs-rule"><span class="hljs-attribute">height</span>:<span class="hljs-value"> <span class="hljs-number">300</span>,
           </span></span></span>}}
           <span class="hljs-tag">style</span>=<span class="hljs-rules">{{
             <span class="hljs-rule"><span class="hljs-attribute">textAlign</span>:<span class="hljs-value"> <span class="hljs-string">'center'</span>,
@@ -364,7 +353,6 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
               </span></span></span>},
             },
           }}
-          <span class="hljs-tag">onPan</span>=<span class="hljs-rules">{this.onPan}</span>
         &gt;
           &lt;<span class="hljs-tag">h3</span>&gt;<span class="hljs-tag">Pull</span> <span class="hljs-tag">down</span> <span class="hljs-tag">to</span> <span class="hljs-tag">refresh</span>&lt;/<span class="hljs-tag">h3</span>&gt;
           <span class="hljs-rules">{this.state.items}</span>
