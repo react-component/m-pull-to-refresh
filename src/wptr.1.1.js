@@ -182,12 +182,22 @@ export default function WebPullToRefresh() {
     pan.enabled = false;
   }
 
-  function onPan(e) {
+  function handlePan(e) {
     if (e.additionalEvent === 'pandown') {
       onPanDown(e);
     }
     if (e.additionalEvent === 'panup') {
       onPanUp(e);
+    }
+  }
+  function onPan(e) {
+    const cb = options.onPan(e);
+    if (cb && cb.then) {
+      cb.then(() => {
+        handlePan(e);
+      });
+    } else if (cb) {
+      handlePan(e);
     }
   }
 

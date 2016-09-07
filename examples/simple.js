@@ -1,7 +1,7 @@
 // use jsx to render html, do not modify simple.html
 
 import 'rmc-pull-to-refresh/assets/index.less';
-import MPullToRefresh from 'rmc-pull-to-refresh';
+import PullToRefresh from 'rmc-pull-to-refresh';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Icon from 'antd/lib/icon';
@@ -15,6 +15,17 @@ const App = React.createClass({
         <div key={`item-${count}`} style={{ height: 50 }}>Item {count++}</div>,
       ],
     };
+  },
+  onPan(e) {
+    if (document.body.scrollTop > 5 && e.additionalEvent === 'pandown') {
+      return false;
+    }
+    return true;
+    // return new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve();
+    //   }, 500);
+    // });
   },
   loadingFunction() {
     return new Promise((resolve, reject) => {
@@ -54,7 +65,7 @@ const App = React.createClass({
           `,
         }}
         />
-        <MPullToRefresh
+        <PullToRefresh
           loadingFunction={this.loadingFunction}
           icon={
             <div style={{ marginTop: 15 }}>
@@ -68,6 +79,7 @@ const App = React.createClass({
           }
           loading={<div style={{ marginTop: 15 }}><Icon type="loading" /> Loading</div>}
           distanceToRefresh={40}
+          className="forTest"
           contentClassName="for-test"
           contentStyle={{
             minHeight: 300,
@@ -86,12 +98,11 @@ const App = React.createClass({
               },
             },
           }}
+          onPan={this.onPan}
         >
           <h3>Pull down to refresh</h3>
-          <div ref="c" style={{ height: 300, overflow: 'auto' }}>
-            {this.state.items}
-          </div>
-        </MPullToRefresh>
+          {this.state.items}
+        </PullToRefresh>
       </div>
     );
   },

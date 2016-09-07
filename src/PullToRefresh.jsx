@@ -23,10 +23,12 @@ export default class PullToRefresh extends React.Component {
     resistance: PropTypes.number,
     children: PropTypes.any,
     hammerOptions: PropTypes.object,
+    onPan: PropTypes.func,
   };
 
   static defaultProps = {
     prefixCls: 'rmc-pull-to-refresh',
+    onPan: () => { return true; },
   };
 
   componentWillMount() {
@@ -42,6 +44,7 @@ export default class PullToRefresh extends React.Component {
       distanceToRefresh: props.distanceToRefresh,
       loadingFunction: props.loadingFunction,
       resistance: props.resistance,
+      onPan: props.onPan,
     });
   }
 
