@@ -16,17 +16,6 @@ const App = React.createClass({
       ],
     };
   },
-  onPan(e) {
-    if (document.body.scrollTop > 5 && e.additionalEvent === 'pandown') {
-      return false;
-    }
-    return true;
-    // return new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve();
-    //   }, 500);
-    // });
-  },
   loadingFunction() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -69,20 +58,20 @@ const App = React.createClass({
           loadingFunction={this.loadingFunction}
           icon={
             <div style={{ marginTop: 15 }}>
-            <div className="pull">
-            <Icon type="down" />  pull down to refresh
-            </div>
-            <div className="release">
-             <Icon type="up" /> release to refresh
-            </div>
+              <div className="pull">
+                <Icon type="down"/> pull down to refresh
+              </div>
+              <div className="release">
+                <Icon type="up"/> release to refresh
+              </div>
             </div>
           }
-          loading={<div style={{ marginTop: 15 }}><Icon type="loading" /> Loading</div>}
+          loading={<div style={{ marginTop: 15 }}><Icon type="loading"/> Loading</div>}
           distanceToRefresh={40}
           className="forTest"
           contentClassName="for-test"
           contentStyle={{
-            minHeight: 300,
+            height: 300,
           }}
           style={{
             textAlign: 'center',
@@ -98,7 +87,6 @@ const App = React.createClass({
               },
             },
           }}
-          onPan={this.onPan}
         >
           <h3>Pull down to refresh</h3>
           {this.state.items}
