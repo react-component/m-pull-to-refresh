@@ -45,10 +45,10 @@ const App = React.createClass({
             .rmc-pull-to-refresh .release {
               display: none;
             }
-            .rmc-pull-to-refresh.rmc-pull-to-refresh-refresh .pull {
+            .rmc-pull-to-refresh.rmc-pull-to-refresh-active .pull {
                 display: none;
             }
-            .rmc-pull-to-refresh.rmc-pull-to-refresh-refresh .release {
+            .rmc-pull-to-refresh.rmc-pull-to-refresh-active .release {
               display: block;
             }
           `,
@@ -67,25 +67,14 @@ const App = React.createClass({
             </div>
           }
           loading={<div style={{ marginTop: 15 }}><Icon type="loading"/> Loading</div>}
-          distanceToRefresh={40}
           className="forTest"
           contentClassName="for-test"
-          contentStyle={{
-            height: 300,
-          }}
           style={{
+            height: 300,
             textAlign: 'center',
             width: '90%',
             margin: '0 auto',
             border: '1px solid red',
-          }}
-          hammerOptions={{
-            touchAction: 'auto',
-            recognizers: {
-              pan: {
-                threshold: 5,
-              },
-            },
           }}
         >
           <h3>Pull down to refresh</h3>

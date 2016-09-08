@@ -62,14 +62,12 @@ for details see: https://github.com/apeatling/web-pull-to-refresh
 |----------|----------------|----------|--------------|
 | className | additional css class of root dom node | String |  |
 | prefixCls | prefix class | String | 'rmc-pull-to-refresh' |
-| contentClassName | contentClassName | String | - |
-| contentStyle | contentStyle | object | - |
+| style | container style  | object | - |
 | icon   | arrow element   | React element |  - |
 | loading   | loading element   | React element |  - |
-| distanceToRefresh   |   distanceToRefresh    | number |    70  |
-| resistance   |    resistance  | number |    2.5  |
+| distanceToRefresh   |   distanceToRefresh    | number | 50  |
 | loadingFunction   |  return a promise   | function, required |  -  |
-| hammerOptions   |  be used to configure the [Hammer manager](http://hammerjs.github.io/api/). These properties will be merged with the default ones.(ref: [react-hammerjs](https://github.com/JedWatson/react-hammerjs))   | object |  -  |
+| scrollerOptions   |  be used to configure the scroller. | object |  { scrollingX: false } |
 
 ## Test Case
 
