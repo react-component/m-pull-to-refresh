@@ -1,49 +1,35 @@
 .rmc-pull-to-refresh {
   position: relative;
   overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 .rmc-pull-to-refresh-content {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  -webkit-transform-origin: left top;
+          transform-origin: left top;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
 }
 .rmc-pull-to-refresh-ptr {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   color: grey;
-  z-index: 10;
   text-align: center;
-  height: 40px;
-}
-.rmc-pull-to-refresh:not(.rmc-pull-to-refresh-loading) .rmc-pull-to-refresh-ptr {
-  -webkit-transform: translate3d(0, -40px, 0);
-          transform: translate3d(0, -40px, 0);
+  height: 50px;
+  margin-top: -50px;
+  overflow: hidden;
 }
 .rmc-pull-to-refresh-ptr-icon {
-  -webkit-transition: all .25s ease;
-  transition: all .25s ease;
+  display: block;
 }
 .rmc-pull-to-refresh-ptr-loading {
   display: none;
 }
+.rmc-pull-to-refresh-loading .rmc-pull-to-refresh-ptr-icon {
+  display: none;
+}
 .rmc-pull-to-refresh-loading .rmc-pull-to-refresh-ptr-loading {
   display: block;
-}
-.rmc-pull-to-refresh-loading .rmc-pull-to-refresh-content {
-  -webkit-transform: translate3d(0, 40px, 0);
-          transform: translate3d(0, 40px, 0);
-}
-.rmc-pull-to-refresh-loading .rmc-pull-to-refresh-ptr,
-.rmc-pull-to-refresh-reset .rmc-pull-to-refresh-ptr,
-.rmc-pull-to-refresh-loading .rmc-pull-to-refresh-content,
-.rmc-pull-to-refresh-reset .rmc-pull-to-refresh-content {
-  -webkit-transition: all .25s ease;
-  transition: all .25s ease;
-}
-.rmc-pull-to-refresh-loading .rmc-pull-to-refresh-ptr-icon,
-.rmc-pull-to-refresh-reset .rmc-pull-to-refresh-ptr-icon {
-  display: none;
 }
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 /**

@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-pull-to-refresh@0.4.1 - React Mobile Pull To Refresh Component</title>
+  <title>rmc-pull-to-refresh@0.5.0 - React Mobile Pull To Refresh Component</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rmc-pull-to-refresh@0.4.1</h1>
+  <h1>rmc-pull-to-refresh@0.5.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -789,14 +789,8 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>&#39;rmc-pull-to-refresh&#39;</td>
 </tr>
 <tr>
-<td>contentClassName</td>
-<td>contentClassName</td>
-<td>String</td>
-<td>-</td>
-</tr>
-<tr>
-<td>contentStyle</td>
-<td>contentStyle</td>
+<td>style</td>
+<td>container style</td>
 <td>object</td>
 <td>-</td>
 </tr>
@@ -816,13 +810,7 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>distanceToRefresh</td>
 <td>distanceToRefresh</td>
 <td>number</td>
-<td>70</td>
-</tr>
-<tr>
-<td>resistance</td>
-<td>resistance</td>
-<td>number</td>
-<td>2.5</td>
+<td>50</td>
 </tr>
 <tr>
 <td>loadingFunction</td>
@@ -831,10 +819,10 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>-</td>
 </tr>
 <tr>
-<td>hammerOptions</td>
-<td>be used to configure the <a href="http://hammerjs.github.io/api/" title="null">Hammer manager</a>. These properties will be merged with the default ones.(ref: <a href="https://github.com/JedWatson/react-hammerjs" title="null">react-hammerjs</a>)</td>
+<td>scrollerOptions</td>
+<td>be used to configure the scroller.</td>
 <td>object</td>
-<td>-</td>
+<td>{ scrollingX: false }</td>
 </tr>
 </tbody>
 </table>
