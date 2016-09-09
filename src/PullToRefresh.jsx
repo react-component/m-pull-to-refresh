@@ -55,9 +55,9 @@ const PullToRefresh = React.createClass({
       });
   },
 
-  componentDidUpdate() {
-    this.domScroller.reflow();
-  },
+  // componentDidUpdate() {
+  //   this.domScroller.reflow();
+  // },
 
   componentWillUnMount() {
     this.domScroller.destroy();
