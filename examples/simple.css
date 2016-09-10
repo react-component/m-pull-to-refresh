@@ -566,9 +566,6 @@ samp {
   text-transform: none;
   text-rendering: auto;
   line-height: 1;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 .anticon:before {
   display: block;
@@ -2372,8 +2369,8 @@ samp {
 @-webkit-keyframes antZoomIn {
   0% {
     opacity: 0;
-    -webkit-transform: scale(0.2);
-            transform: scale(0.2);
+    -webkit-transform: scale(0);
+            transform: scale(0);
   }
   100% {
     opacity: 1;
@@ -2384,8 +2381,8 @@ samp {
 @keyframes antZoomIn {
   0% {
     opacity: 0;
-    -webkit-transform: scale(0.2);
-            transform: scale(0.2);
+    -webkit-transform: scale(0);
+            transform: scale(0);
   }
   100% {
     opacity: 1;
@@ -2400,8 +2397,8 @@ samp {
   }
   100% {
     opacity: 0;
-    -webkit-transform: scale(0.2);
-            transform: scale(0.2);
+    -webkit-transform: scale(0);
+            transform: scale(0);
   }
 }
 @keyframes antZoomOut {
@@ -2411,8 +2408,8 @@ samp {
   }
   100% {
     opacity: 0;
-    -webkit-transform: scale(0.2);
-            transform: scale(0.2);
+    -webkit-transform: scale(0);
+            transform: scale(0);
   }
 }
 @-webkit-keyframes antZoomBigIn {
