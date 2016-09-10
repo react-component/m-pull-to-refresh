@@ -1,6 +1,6 @@
 {
   "name": "rmc-pull-to-refresh",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "React Mobile Pull To Refresh Component",
   "keywords": [
     "react",
@@ -48,6 +48,6 @@
   ],
   "dependencies": {
     "babel-runtime": "6.x",
-    "zscroller": "~0.1.0"
+    "zscroller": "~0.2.0"
   }
 }

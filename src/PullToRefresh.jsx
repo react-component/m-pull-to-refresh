@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import DOMScroller from 'zscroller/lib/DOMScroller';
+import DOMScroller from 'zscroller';
 
 // at lease 1s for ux
 function fake() {
@@ -7,6 +7,10 @@ function fake() {
     setTimeout(resolve, 1000);
   });
 }
+
+const defaultScrollerOptions = {
+  scrollingX: false,
+};
 
 const PullToRefresh = React.createClass({
   propTypes: {
@@ -27,9 +31,6 @@ const PullToRefresh = React.createClass({
   getDefaultProps() {
     return {
       prefixCls: 'rmc-pull-to-refresh',
-      scrollerOptions: {
-        scrollingX: false,
-      },
       distanceToRefresh: 50,
     };
   },
@@ -38,7 +39,10 @@ const PullToRefresh = React.createClass({
     const { props, refs } = this;
     const { prefixCls } = props;
     const containerClassList = refs.container.classList;
-    this.domScroller = new DOMScroller(refs.content, props.scrollerOptions);
+    this.domScroller = new DOMScroller(refs.content, {
+      ...defaultScrollerOptions,
+      ...props.scrollerOptions,
+    });
     const scroller = this.domScroller.scroller;
     scroller.activatePullToRefresh(props.distanceToRefresh,
       () => {
