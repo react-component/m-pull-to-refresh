@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import DOMScroller from 'zscroller';
 
 // at lease 1s for ux
@@ -26,6 +27,7 @@ const PullToRefresh = React.createClass({
     distanceToRefresh: PropTypes.number,
     children: PropTypes.any,
     scrollerOptions: PropTypes.object,
+    outerContainer: PropTypes.bool,
   },
 
   getDefaultProps() {
@@ -37,8 +39,14 @@ const PullToRefresh = React.createClass({
 
   componentDidMount() {
     const { props, refs } = this;
-    const { prefixCls } = props;
-    const containerClassList = refs.container.classList;
+    const { prefixCls, outerContainer } = props;
+    let containerClassList;
+    if (outerContainer) {
+      containerClassList = ReactDOM.findDOMNode(this).parentNode.classList;
+      refs.content.style.height = refs.ptr.style.height;
+    } else {
+      containerClassList = refs.container.classList;
+    }
     this.domScroller = new DOMScroller(refs.content, {
       ...defaultScrollerOptions,
       ...props.scrollerOptions,
@@ -74,21 +82,28 @@ const PullToRefresh = React.createClass({
   render() {
     const {
       prefixCls, children, icon, loading, className = '',
-      style, contentStyle, contentClassName = '',
+      style, contentStyle, contentClassName = '', outerContainer,
     } = this.props;
+    const content = (
+      <div
+        ref="content"
+        className={`${prefixCls}-content ${contentClassName}`}
+        style={contentStyle}
+      >
+        <div key="ptr" ref="ptr" className={`${prefixCls}-ptr`}>
+          <div className={`${prefixCls}-ptr-icon`}>{icon}</div>
+          <div className={`${prefixCls}-ptr-loading`}>{loading}</div>
+        </div>
+        {outerContainer ? <div ref="placeholder" className={`${prefixCls}-placeholder`} /> : null}
+        {children}
+      </div>
+    );
+    if (outerContainer) {
+      return content;
+    }
     return (
       <div className={`${className} ${prefixCls}`} style={style} ref="container">
-        <div
-          ref="content"
-          className={`${prefixCls}-content ${contentClassName}`}
-          style={contentStyle}
-        >
-          <div key="ptr" ref="ptr" className={`${prefixCls}-ptr`}>
-            <div className={`${prefixCls}-ptr-icon`}>{icon}</div>
-            <div className={`${prefixCls}-ptr-loading`}>{loading}</div>
-          </div>
-          {children}
-        </div>
+        {content}
       </div>
     );
   },
