@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rmc-pull-to-refresh@0.5.3 - React Mobile Pull To Refresh Component</title>
+  <title>rmc-pull-to-refresh@1.0.0-alpha.0 - React Mobile Pull To Refresh Component</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,14 +737,16 @@
 
 <body>
 <div class="header">
-  <h1>rmc-pull-to-refresh@0.5.3</h1>
+  <h1>rmc-pull-to-refresh@1.0.0-alpha.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
   <div class="examples-body">
     <ul>
       
-      <li><a href="examples/simple.html">simple</a></li>
+      <li><a href="examples/base.html">base</a></li>
+      
+      <li><a href="examples/base1.html">base1</a></li>
       
     </ul>
   </div>
@@ -765,8 +767,7 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <p>online example: <a href="http://react-component.github.io/m-pull-to-refresh/" title="null">http://react-component.github.io/m-pull-to-refresh/</a></p>
 <h2>install<a id="user-content-install" name="install" class="anchor" aria-hidden="true" href="#install"><span class="octicon octicon-link"></span></a></h2><p><a href="https://npmjs.org/package/rmc-pull-to-refresh" title="null"><img src="https://nodei.co/npm/rmc-pull-to-refresh.png" alt="rmc-pull-to-refresh"></a></p>
 <h2>Usage<a id="user-content-usage" name="usage" class="anchor" aria-hidden="true" href="#usage"><span class="octicon octicon-link"></span></a></h2><p>see example</p>
-<h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><p>for details see: <a href="https://github.com/apeatling/web-pull-to-refresh" title="null">https://github.com/apeatling/web-pull-to-refresh</a></p>
-<h3>props<a id="user-content-props" name="props" class="anchor" aria-hidden="true" href="#props"><span class="octicon octicon-link"></span></a></h3><table>
+<h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><h3>props<a id="user-content-props" name="props" class="anchor" aria-hidden="true" href="#props"><span class="octicon octicon-link"></span></a></h3><table>
 <thead>
 <tr>
 <th>name</th>
@@ -777,10 +778,40 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 </thead>
 <tbody>
 <tr>
+<td>direction</td>
+<td>pull direction, can be <code>up</code> or <code>down</code></td>
+<td>String</td>
+<td><code>down</code></td>
+</tr>
+<tr>
+<td>distanceToRefresh</td>
+<td>distance to pull to refresh</td>
+<td>number</td>
+<td>50</td>
+</tr>
+<tr>
+<td>refreshing</td>
+<td>Whether the view should be indicating an active refresh</td>
+<td>bool</td>
+<td>false</td>
+</tr>
+<tr>
+<td>onRefresh</td>
+<td>Called when the view starts refreshing.</td>
+<td>() =&gt; void</td>
+<td>-</td>
+</tr>
+<tr>
+<td>renderer</td>
+<td>custom renderer text, the params are one of <code>activate</code> / <code>deactivate</code> / <code>release</code> / <code>finish</code></td>
+<td>(arg) =&gt; any</td>
+<td>-</td>
+</tr>
+<tr>
 <td>className</td>
 <td>additional css class of root dom node</td>
 <td>String</td>
-<td></td>
+<td>-</td>
 </tr>
 <tr>
 <td>prefixCls</td>
@@ -788,47 +819,9 @@ npm start</code></pre></div><h2>Example<a id="user-content-example" name="exampl
 <td>String</td>
 <td>&#39;rmc-pull-to-refresh&#39;</td>
 </tr>
-<tr>
-<td>style</td>
-<td>container style</td>
-<td>object</td>
-<td>-</td>
-</tr>
-<tr>
-<td>icon</td>
-<td>arrow element</td>
-<td>React element</td>
-<td>-</td>
-</tr>
-<tr>
-<td>loading</td>
-<td>loading element</td>
-<td>React element</td>
-<td>-</td>
-</tr>
-<tr>
-<td>distanceToRefresh</td>
-<td>distanceToRefresh</td>
-<td>number</td>
-<td>50</td>
-</tr>
-<tr>
-<td>loadingFunction</td>
-<td>return a promise</td>
-<td>function, required</td>
-<td>-</td>
-</tr>
-<tr>
-<td>scrollerOptions</td>
-<td>be used to configure the scroller.</td>
-<td>object</td>
-<td>{ scrollingX: false }</td>
-</tr>
 </tbody>
 </table>
-<h2>Test Case<a id="user-content-test-case" name="test-case" class="anchor" aria-hidden="true" href="#test-case"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="undefined">npm test
-npm run chrome-test</code></pre></div><h2>Coverage<a id="user-content-coverage" name="coverage" class="anchor" aria-hidden="true" href="#coverage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="undefined">npm run coverage</code></pre></div><p>open coverage/ dir</p>
-<h2>License<a id="user-content-license" name="license" class="anchor" aria-hidden="true" href="#license"><span class="octicon octicon-link"></span></a></h2><p>rmc-pull-to-refresh is released under the MIT license.</p>
+<h2>Test Case<a id="user-content-test-case" name="test-case" class="anchor" aria-hidden="true" href="#test-case"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="undefined">npm test</code></pre></div><h2>Coverage<a id="user-content-coverage" name="coverage" class="anchor" aria-hidden="true" href="#coverage"><span class="octicon octicon-link"></span></a></h2><div class="highlight"><pre><code language="undefined">npm run coverage</code></pre></div><h2>License<a id="user-content-license" name="license" class="anchor" aria-hidden="true" href="#license"><span class="octicon octicon-link"></span></a></h2><p>rmc-pull-to-refresh is released under the MIT license.</p>
 
   </div>
 </div>
