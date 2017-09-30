@@ -1,35 +1,30 @@
 @pull-to-refresh: rmc-pull-to-refresh;
-.@{pull-to-refresh} {
-  position: relative;
-  overflow: hidden;
-  user-select: none;
 
+.@{pull-to-refresh} {
   &-content {
-    transform-origin: left top;
-    transform: translateZ(0);
+    &-wrapper {
+      overflow: hidden;
+    }
+
+    transform-origin: left top 0px;
   }
 
-  &-ptr {
+  &-indicator {
     color: grey;
     text-align: center;
-    height: 50px;
-    margin-top: -50px;
-    overflow: hidden;
-    &-icon {
-      display: block;
-    }
-    &-loading {
-      display: none;
-    }
+    height: 25px;
+    line-height: 25px;
   }
-  &-loading {
-    .@{pull-to-refresh}-ptr {
-      &-icon {
-        display: none;
-      }
-      &-loading {
-        display: block;
-      }
-    }
+  
+  &-down .@{pull-to-refresh}-indicator {
+    margin-top: -25px;
+  }
+  
+  &-up .@{pull-to-refresh}-indicator {
+    margin-bottom: -25px;
+  }
+  
+  &-transition {
+    transition: transform 0.3s;
   }
 }

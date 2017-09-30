@@ -54,26 +54,22 @@ see example
 
 ## API
 
-for details see: https://github.com/apeatling/web-pull-to-refresh
-
 ### props
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-| className | additional css class of root dom node | String |  |
+| direction  | pull direction, can be `up` or `down` | String | `down` |
+| distanceToRefresh | distance to pull to refresh | number | 50  |
+| refreshing | Whether the view should be indicating an active refresh | bool | false |
+| onRefresh  | Called when the view starts refreshing. | () => void | - |
+| renderer  | custom renderer text, the params are one of `activate` / `deactivate` / `release` / `finish` | (arg) => any | - |
+| className | additional css class of root dom node | String | - |
 | prefixCls | prefix class | String | 'rmc-pull-to-refresh' |
-| style | container style  | object | - |
-| icon   | arrow element   | React element |  - |
-| loading   | loading element   | React element |  - |
-| distanceToRefresh   |   distanceToRefresh    | number | 50  |
-| loadingFunction   |  return a promise   | function, required |  -  |
-| scrollerOptions   |  be used to configure the scroller. | object |  { scrollingX: false } |
 
 ## Test Case
 
 ```
 npm test
-npm run chrome-test
 ```
 
 ## Coverage
@@ -81,8 +77,6 @@ npm run chrome-test
 ```
 npm run coverage
 ```
-
-open coverage/ dir
 
 ## License
 
