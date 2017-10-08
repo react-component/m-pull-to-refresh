@@ -1,20 +1,20 @@
 webpackJsonp([1],{
 
-/***/ 124:
+/***/ 123:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(65);
+module.exports = __webpack_require__(64);
 
 
 /***/ }),
 
-/***/ 65:
+/***/ 64:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(24);
@@ -23,7 +23,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_index_less__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_index_less__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__assets_index_less___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__assets_index_less__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__src__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react__ = __webpack_require__(16);
@@ -55,7 +55,8 @@ var App = function (_React$Component) {
     }
 
     return _ret = (_temp = (_this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      refreshing: true
+      refreshing: true,
+      switchContainer: true
     }, _temp), __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(_this, _ret);
   }
 
@@ -77,21 +78,33 @@ var App = function (_React$Component) {
         'div',
         null,
         __WEBPACK_IMPORTED_MODULE_7_react___default.a.createElement(
+          'button',
+          {
+            style: { display: 'inline-block', marginBottom: 30, border: 1 },
+            onClick: function onClick() {
+              return _this3.setState({ switchContainer: !_this3.state.switchContainer });
+            }
+          },
+          'switchContainer: ',
+          this.state.switchContainer ? 'true' : 'false'
+        ),
+        __WEBPACK_IMPORTED_MODULE_7_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_6__src__["a" /* default */],
-          __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_defineProperty___default()({
-            getScrollContainer: function getScrollContainer() {
+          __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({
+            key: this.state.switchContainer,
+            style: { height: 200, overflow: 'auto', border: '1px solid #ccc' }
+          }, this.state.switchContainer ? { getScrollContainer: function getScrollContainer() {
               return document.body;
-            },
-            onRefresh: this.onRefresh,
+            } } : {}, {
             className: 'forTest',
             direction: 'up',
-            style: { height: 200, overflow: 'auto', border: '1px solid #ccc' },
-            refreshing: this.state.refreshing
-          }, 'onRefresh', function onRefresh() {
-            _this3.setState({ refreshing: true });
-            setTimeout(function () {
-              _this3.setState({ refreshing: false });
-            }, 1000);
+            refreshing: this.state.refreshing,
+            onRefresh: function onRefresh() {
+              _this3.setState({ refreshing: true });
+              setTimeout(function () {
+                _this3.setState({ refreshing: false });
+              }, 1000);
+            }
           }),
           [1, 2, 3, 4, 5, 6, 7].map(function (i) {
             return __WEBPACK_IMPORTED_MODULE_7_react___default.a.createElement(
@@ -117,5 +130,5 @@ __WEBPACK_IMPORTED_MODULE_8_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ })
 
-},[124]);
+},[123]);
 //# sourceMappingURL=base.js.map

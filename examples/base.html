@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>base.js - example - rmc-pull-to-refresh@1.0.0-alpha.0</title>
+  <title>base.js - example - rmc-pull-to-refresh@1.0.0-alpha.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-pull-to-refresh@1.0.0-alpha.0</h1>
+      <h1>rmc-pull-to-refresh@1.0.0-alpha.1</h1>
 
       <p>React Mobile Pull To Refresh Component</p>
     </div>
@@ -277,18 +277,28 @@ import ReactDOM from 'react-dom';
 class App extends React.Component {
   state = {
     refreshing: true,
+    switchContainer: true,
   };
   componentDidMount() {
     setTimeout(() =&gt; this.setState({ refreshing: false }), 1000);
   }
   render() {
+
     return (&lt;div&gt;
+      &lt;button
+        style={{ display: 'inline-block', marginBottom: 30, border: 1 }}
+        onClick={() =&gt; this.setState({ switchContainer: !this.state.switchContainer })}
+      &gt;
+        switchContainer: {this.state.switchContainer ? 'true' : 'false'}
+      &lt;/button&gt;
+
+      {/* todos: 现在如果 getScrollContainer 变化，需要设置新 key 来触发 componentWillUnmount */}
       &lt;PullToRefresh
-        getScrollContainer={()=&gt;document.body}
-        onRefresh={this.onRefresh}
+        key={this.state.switchContainer}
+        style={{ height: 200, overflow: 'auto', border: '1px solid #ccc' }}
+        {...(this.state.switchContainer ? { getScrollContainer: () =&gt; document.body } : {}) }
         className="forTest"
         direction="up"
-        style={{ height: 200, overflow: 'auto', border: '1px solid #ccc' }}
         refreshing={this.state.refreshing}
         onRefresh={() =&gt; {
           this.setState({ refreshing: true });

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>base1.js - example - rmc-pull-to-refresh@1.0.0-alpha.0</title>
+  <title>base1.js - example - rmc-pull-to-refresh@1.0.0-alpha.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rmc-pull-to-refresh@1.0.0-alpha.0</h1>
+      <h1>rmc-pull-to-refresh@1.0.0-alpha.1</h1>
 
       <p>React Mobile Pull To Refresh Component</p>
     </div>
@@ -275,13 +275,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class Lv extends React.Component {
+  componentDidMount() {
+    if (this.props.pullToRefresh) {
+      this.forceUpdate();
+    }
+  }
   render() {
     let child = this.props.children;
-    if (this.props.pullToRefresh) {
-      child = React.cloneElement(this.props.pullToRefresh, {}, child);
+    if (this.props.pullToRefresh &amp;&amp; this.lv) {
+      child = React.cloneElement(this.props.pullToRefresh, {
+        getScrollContainer: () =&gt; this.lv,
+      }, child);
     }
     return (
-      &lt;div style={{ height: 200, border: 1, overflow: 'auto' }}&gt;
+      &lt;div ref={el =&gt; this.lv = el} style={{ height: 200, border: 1, overflow: 'auto' }}&gt;
         {child}
       &lt;/div&gt;
     );
@@ -303,7 +310,6 @@ class App extends React.Component {
           &lt;PullToRefresh
             className="forTest"
             direction="up"
-            onRefresh={this.onRefresh}
             refreshing={this.state.refreshing}
             onRefresh={() =&gt; {
               this.setState({ refreshing: true });
