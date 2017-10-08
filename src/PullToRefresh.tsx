@@ -51,6 +51,9 @@ export default class PullToRefresh extends React.Component<PropsType, StateType>
   _pullUpTimer: any;
 
   componentDidUpdate(prevProps: any) {
+    if (prevProps === this.props) {
+      return;
+    }
     const preRefreshing = prevProps.refreshing;
     const nowRefreshing = this.props.refreshing;
     if (preRefreshing && !nowRefreshing && !this._pullUpTimer) {
@@ -70,7 +73,7 @@ export default class PullToRefresh extends React.Component<PropsType, StateType>
     }
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     if (this.props.getScrollContainer) {
       this.destroyPullUp(this.props.getScrollContainer());
     } else {
@@ -180,10 +183,12 @@ export default class PullToRefresh extends React.Component<PropsType, StateType>
   // triggerRefresh = () => {}
 
   render() {
-    const {
+    let {
       className, prefixCls, children, getScrollContainer,
       direction, onRefresh, renderer, distanceToRefresh, ...restProps,
     } = this.props;
+
+    // delete restProps.refreshing
 
     const renderRefresh = () => {
       let defaultRenderer = this.pullUpDisplay.deactivate;

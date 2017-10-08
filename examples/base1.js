@@ -4,13 +4,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class Lv extends React.Component {
+  componentDidMount() {
+    if (this.props.pullToRefresh) {
+      this.forceUpdate();
+    }
+  }
   render() {
     let child = this.props.children;
-    if (this.props.pullToRefresh) {
-      child = React.cloneElement(this.props.pullToRefresh, {}, child);
+    if (this.props.pullToRefresh && this.lv) {
+      child = React.cloneElement(this.props.pullToRefresh, {
+        getScrollContainer: () => this.lv,
+      }, child);
     }
     return (
-      <div style={{ height: 200, border: 1, overflow: 'auto' }}>
+      <div ref={el => this.lv = el} style={{ height: 200, border: 1, overflow: 'auto' }}>
         {child}
       </div>
     );
@@ -32,7 +39,6 @@ class App extends React.Component {
           <PullToRefresh
             className="forTest"
             direction="up"
-            onRefresh={this.onRefresh}
             refreshing={this.state.refreshing}
             onRefresh={() => {
               this.setState({ refreshing: true });

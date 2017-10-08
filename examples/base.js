@@ -6,18 +6,28 @@ import ReactDOM from 'react-dom';
 class App extends React.Component {
   state = {
     refreshing: true,
+    switchContainer: true,
   };
   componentDidMount() {
     setTimeout(() => this.setState({ refreshing: false }), 1000);
   }
   render() {
+
     return (<div>
+      <button
+        style={{ display: 'inline-block', marginBottom: 30, border: 1 }}
+        onClick={() => this.setState({ switchContainer: !this.state.switchContainer })}
+      >
+        switchContainer: {this.state.switchContainer ? 'true' : 'false'}
+      </button>
+
+      {/* todos: 现在如果 getScrollContainer 变化，需要设置新 key 来触发 componentWillUnmount */}
       <PullToRefresh
-        getScrollContainer={()=>document.body}
-        onRefresh={this.onRefresh}
+        key={this.state.switchContainer}
+        style={{ height: 200, overflow: 'auto', border: '1px solid #ccc' }}
+        {...(this.state.switchContainer ? { getScrollContainer: () => document.body } : {}) }
         className="forTest"
         direction="up"
-        style={{ height: 200, overflow: 'auto', border: '1px solid #ccc' }}
         refreshing={this.state.refreshing}
         onRefresh={() => {
           this.setState({ refreshing: true });
