@@ -427,7 +427,7 @@ module.exports = function (it, key) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(12);
-var IE8_DOM_DEFINE = __webpack_require__(50);
+var IE8_DOM_DEFINE = __webpack_require__(49);
 var toPrimitive = __webpack_require__(37);
 var dP = Object.defineProperty;
 
@@ -510,7 +510,7 @@ module.exports = invariant;
 
 var global = __webpack_require__(1);
 var core = __webpack_require__(3);
-var ctx = __webpack_require__(48);
+var ctx = __webpack_require__(47);
 var hide = __webpack_require__(9);
 var PROTOTYPE = 'prototype';
 
@@ -590,7 +590,7 @@ module.exports = __webpack_require__(4) ? function (object, key, value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(51);
+var IObject = __webpack_require__(50);
 var defined = __webpack_require__(27);
 module.exports = function (it) {
   return IObject(defined(it));
@@ -764,7 +764,7 @@ if (process.env.NODE_ENV === 'production') {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(55);
+var $keys = __webpack_require__(54);
 var enumBugKeys = __webpack_require__(28);
 
 module.exports = Object.keys || function keys(O) {
@@ -962,7 +962,7 @@ var _create = __webpack_require__(68);
 
 var _create2 = _interopRequireDefault(_create);
 
-var _typeof2 = __webpack_require__(46);
+var _typeof2 = __webpack_require__(45);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -993,7 +993,7 @@ exports.default = function (subClass, superClass) {
 
 exports.__esModule = true;
 
-var _typeof2 = __webpack_require__(46);
+var _typeof2 = __webpack_require__(45);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -1057,7 +1057,7 @@ var PROTOTYPE = 'prototype';
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(49)('iframe');
+  var iframe = __webpack_require__(48)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
@@ -1311,52 +1311,6 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 /* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-function checkDCE() {
-  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-  if (
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
-  ) {
-    return;
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    // This branch is unreachable because this function is only called
-    // in production, but the condition is true only in development.
-    // Therefore if the branch is still here, dead code elimination wasn't
-    // properly applied.
-    // Don't change the message. React DevTools relies on it. Also make sure
-    // this message doesn't occur elsewhere in this function, or it will cause
-    // a false positive.
-    throw new Error('^_^');
-  }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  // DCE check should happen before ReactDOM bundle executes so that
-  // DevTools can report bad minification during injection.
-  checkDCE();
-  module.exports = __webpack_require__(120);
-} else {
-  module.exports = __webpack_require__(119);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1365,7 +1319,7 @@ if (process.env.NODE_ENV === 'production') {
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__PullToRefresh__["a" /* default */]);
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1394,7 +1348,7 @@ exports.default = _assign2.default || function (target) {
 };
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1421,7 +1375,7 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 };
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -1432,7 +1386,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
@@ -1458,7 +1412,7 @@ module.exports = function (fn, that, length) {
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(14);
@@ -1471,20 +1425,20 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = !__webpack_require__(4) && !__webpack_require__(13)(function () {
-  return Object.defineProperty(__webpack_require__(49)('div'), 'a', { get: function () { return 7; } }).a != 7;
+  return Object.defineProperty(__webpack_require__(48)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(47);
+var cof = __webpack_require__(46);
 // eslint-disable-next-line no-prototype-builtins
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
@@ -1492,14 +1446,14 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var LIBRARY = __webpack_require__(30);
 var $export = __webpack_require__(8);
-var redefine = __webpack_require__(56);
+var redefine = __webpack_require__(55);
 var hide = __webpack_require__(9);
 var has = __webpack_require__(5);
 var Iterators = __webpack_require__(29);
@@ -1569,7 +1523,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(18);
@@ -1577,7 +1531,7 @@ var createDesc = __webpack_require__(19);
 var toIObject = __webpack_require__(10);
 var toPrimitive = __webpack_require__(37);
 var has = __webpack_require__(5);
-var IE8_DOM_DEFINE = __webpack_require__(50);
+var IE8_DOM_DEFINE = __webpack_require__(49);
 var gOPD = Object.getOwnPropertyDescriptor;
 
 exports.f = __webpack_require__(4) ? gOPD : function getOwnPropertyDescriptor(O, P) {
@@ -1591,11 +1545,11 @@ exports.f = __webpack_require__(4) ? gOPD : function getOwnPropertyDescriptor(O,
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(55);
+var $keys = __webpack_require__(54);
 var hiddenKeys = __webpack_require__(28).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
@@ -1604,7 +1558,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(5);
@@ -1627,14 +1581,14 @@ module.exports = function (object, names) {
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(9);
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -1645,13 +1599,13 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1732,7 +1686,7 @@ module.exports = EventListener;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1775,7 +1729,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1805,7 +1759,7 @@ function focusNode(node) {
 module.exports = focusNode;
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1847,7 +1801,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1918,29 +1872,72 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+function checkDCE() {
+  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+  if (
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
+  ) {
+    return;
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    // This branch is unreachable because this function is only called
+    // in production, but the condition is true only in development.
+    // Therefore if the branch is still here, dead code elimination wasn't
+    // properly applied.
+    // Don't change the message. React DevTools relies on it. Also make sure
+    // this message doesn't occur elsewhere in this function, or it will cause
+    // a false positive.
+    throw new Error('^_^');
+  }
+  try {
+    // Verify that the code above has been dead code eliminated (DCE'd).
+    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
+  } catch (err) {
+    // DevTools shouldn't crash React, no matter what.
+    // We should still report in case we break this code.
+    console.error(err);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  // DCE check should happen before ReactDOM bundle executes so that
+  // DevTools can report bad minification during injection.
+  checkDCE();
+  module.exports = __webpack_require__(120);
+} else {
+  module.exports = __webpack_require__(119);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
 /* 64 */,
 /* 65 */,
 /* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export StateType */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_classCallCheck__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_classnames__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_classnames__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_classnames__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_classnames__);
 
 
 
@@ -1956,61 +1953,58 @@ var __rest = this && this.__rest || function (s, e) {
 };
 
 
-
-var StateType = function StateType() {
-    __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_classCallCheck___default()(this, StateType);
-};
 function setTransform(nodeStyle, value) {
     nodeStyle.transform = value;
     nodeStyle.webkitTransform = value;
     nodeStyle.MozTransform = value;
 }
+var DOWN = 'down';
+var UP = 'up';
+var INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
 
 var PullToRefresh = function (_React$Component) {
-    __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_inherits___default()(PullToRefresh, _React$Component);
+    __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(PullToRefresh, _React$Component);
 
     function PullToRefresh() {
-        __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_classCallCheck___default()(this, PullToRefresh);
+        __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, PullToRefresh);
 
         // https://github.com/yiminghe/zscroller/blob/2d97973287135745818a0537712235a39a6a62a1/src/Scroller.js#L355
-        // states: `activate` / `deactivate` / `release` / `finish`
-        var _this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (PullToRefresh.__proto__ || Object.getPrototypeOf(PullToRefresh)).apply(this, arguments));
+        // currSt: `activate` / `deactivate` / `release` / `finish`
+        var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (PullToRefresh.__proto__ || Object.getPrototypeOf(PullToRefresh)).apply(this, arguments));
 
         _this.state = {
-            pullUp: '',
-            isTouching: false
+            currSt: '',
+            dragOnEdge: false
         };
-        _this.pullUpStats = {
-            activate: 'activate',
-            deactivate: 'deactivate',
-            release: 'release',
-            finish: 'finish'
+        _this.triggerPullToRefresh = function () {
+            // 在初始化时、用代码 自动 触发 pullToRefresh
+            // 注意：当 direction 为 up 时，当 visible length < content length 时、则看不到效果
+            if (!_this.state.dragOnEdge) {
+                if (_this.props.refreshing) {
+                    if (_this.props.direction === UP) {
+                        _this._lastScreenY = -_this.props.distanceToRefresh - 1;
+                    }
+                    if (_this.props.direction === DOWN) {
+                        _this._lastScreenY = _this.props.distanceToRefresh + 1;
+                    }
+                    setTransform(_this.contentRef.style, 'translate3d(0px,' + _this._lastScreenY + 'px,0)');
+                    _this.setState({ currSt: 'release' });
+                } else {
+                    _this.reset();
+                    _this.setState({ currSt: 'finish' });
+                }
+            }
         };
-        _this.pullUpDisplay = {
-            activate: '释放刷新',
-            deactivate: '上拉 ↑',
-            release: '加载中...',
-            finish: '完成刷新'
-        };
-        _this.genEvtHandler = function (ele) {
-            return {
+        _this.initPullUp = function (ele) {
+            _this._to = {
                 touchstart: _this.onTouchStart.bind(_this, ele),
                 touchmove: _this.onTouchMove.bind(_this, ele),
                 touchend: _this.onTouchEnd.bind(_this, ele),
                 touchcancel: _this.onTouchEnd.bind(_this, ele)
             };
-        };
-        _this.initPullUp = function (ele) {
-            _this._to = _this.genEvtHandler(ele);
             Object.keys(_this._to).forEach(function (key) {
                 ele.addEventListener(key, _this._to[key]);
             });
-            if (_this.props.refreshing) {
-                _this.setState({ pullUp: _this.pullUpStats.release }, function () {
-                    _this._pullUpLastScreenY = -_this.props.distanceToRefresh - 1;
-                    setTransform(_this.contentRef.style, 'translate3d(0px,' + _this._pullUpLastScreenY + 'px,0)');
-                });
-            }
         };
         _this.destroyPullUp = function (ele) {
             Object.keys(_this._to).forEach(function (key) {
@@ -2018,107 +2012,106 @@ var PullToRefresh = function (_React$Component) {
             });
         };
         _this.onTouchStart = function (_ele, e) {
-            _this._pullUpScreenY = _this._pullUpStartScreenY = e.touches[0].screenY;
-            // 一开始 refreshing 为 true 时 this._pullUpLastScreenY 有值
-            _this._pullUpLastScreenY = _this._pullUpLastScreenY || 0;
-            _this.setState({ isTouching: true });
+            _this._ScreenY = _this._startScreenY = e.touches[0].screenY;
+            // 一开始 refreshing 为 true 时 this._lastScreenY 有值
+            _this._lastScreenY = _this._lastScreenY || 0;
+        };
+        _this.isEdge = function (ele, direction) {
+            var container = _this.props.getScrollContainer();
+            if (container && container === document.body) {
+                // In chrome61 `document.body.scrollTop` is invalid
+                var scrollNode = document.scrollingElement ? document.scrollingElement : document.body;
+                if (direction === UP) {
+                    return scrollNode.scrollHeight - scrollNode.scrollTop <= window.innerHeight;
+                }
+                if (direction === DOWN) {
+                    return scrollNode.scrollTop <= 0;
+                }
+            }
+            if (direction === UP) {
+                return ele.scrollHeight - ele.scrollTop === ele.clientHeight;
+            }
+            if (direction === DOWN) {
+                return ele.scrollTop <= 0;
+            }
         };
         _this.onTouchMove = function (ele, e) {
             // 使用 pageY 对比有问题
             var _screenY = e.touches[0].screenY;
-            if (_this._pullUpStartScreenY - _screenY > 0) {
-                // console.log('is pull up', _screenY);
-                var isReachBottom = void 0;
-                if (_this.props.getScrollContainer) {
-                    // In chrome61 `document.body.scrollTop` is invalid, here `ele === document.body`
-                    var scrollNode = document.scrollingElement ? document.scrollingElement : ele;
-                    isReachBottom = ele.scrollHeight - scrollNode.scrollTop <= window.innerHeight;
-                    // console.log(ele.scrollHeight, scrollNode.scrollTop, window.innerHeight);
+            var direction = _this.props.direction;
+            // 拖动方向不符合的不处理
+
+            if (direction === UP && _this._startScreenY < _screenY || direction === DOWN && _this._startScreenY > _screenY) {
+                return;
+            }
+            if (_this.isEdge(ele, direction)) {
+                _this.setState({ dragOnEdge: true });
+                var _diff = Math.round(_screenY - _this._ScreenY);
+                _this._ScreenY = _screenY;
+                _this._lastScreenY += _diff;
+                setTransform(_this.contentRef.style, 'translate3d(0px,' + _this._lastScreenY + 'px,0)');
+                if (Math.abs(_this._lastScreenY) < _this.props.distanceToRefresh) {
+                    if (_this.state.currSt !== 'deactivate') {
+                        // console.log('back to the distance');
+                        _this.setState({ currSt: 'deactivate' });
+                    }
                 } else {
-                    isReachBottom = ele.scrollHeight - ele.scrollTop === ele.clientHeight;
-                }
-                if (isReachBottom) {
-                    var _diff = Math.round(_screenY - _this._pullUpScreenY);
-                    _this._pullUpScreenY = _screenY;
-                    _this._pullUpLastScreenY += _diff;
-                    setTransform(_this.contentRef.style, 'translate3d(0px,' + _this._pullUpLastScreenY + 'px,0)');
-                    if (Math.abs(_this._pullUpLastScreenY) < _this.props.distanceToRefresh) {
-                        if (_this.state.pullUp !== _this.pullUpStats.deactivate) {
-                            // console.log('back to the distance');
-                            _this.setState({ pullUp: _this.pullUpStats.deactivate });
-                        }
-                    } else {
-                        if (_this.state.pullUp === _this.pullUpStats.deactivate) {
-                            // console.log('reach to the distance');
-                            _this.setState({ pullUp: _this.pullUpStats.activate });
-                        }
+                    if (_this.state.currSt === 'deactivate') {
+                        // console.log('reach to the distance');
+                        _this.setState({ currSt: 'activate' });
                     }
                 }
             }
         };
         _this.onTouchEnd = function () {
-            _this.setState({ isTouching: false });
-            if (_this.state.pullUp === _this.pullUpStats.deactivate) {
-                _this.pullUpFinish();
-            } else if (_this.state.pullUp === _this.pullUpStats.activate) {
-                _this.setState({ pullUp: _this.pullUpStats.release });
-                _this._pullUpTimer = setTimeout(function () {
+            _this.setState({ dragOnEdge: false });
+            if (_this.state.currSt === 'activate') {
+                _this.setState({ currSt: 'release' });
+                _this._timer = setTimeout(function () {
                     if (!_this.props.refreshing) {
-                        _this.pullUpFinish();
+                        _this.reset();
+                        _this.setState({ currSt: 'finish' });
                     }
-                    _this._pullUpTimer = undefined;
+                    _this._timer = undefined;
                 }, 1000);
                 _this.props.onRefresh();
+            } else {
+                _this.reset();
             }
         };
-        _this.pullUpFinish = function () {
-            _this._pullUpLastScreenY = 0;
+        _this.reset = function () {
+            _this._lastScreenY = 0;
             setTransform(_this.contentRef.style, 'translate3d(0px,0px,0)');
-            if (_this.state.pullUp === _this.pullUpStats.release) {
-                _this.setState({ pullUp: _this.pullUpStats.finish });
-            }
         };
         return _this;
     }
 
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_createClass___default()(PullToRefresh, [{
+    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(PullToRefresh, [{
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps) {
             if (prevProps === this.props) {
                 return;
             }
-            var preRefreshing = prevProps.refreshing;
-            var nowRefreshing = this.props.refreshing;
-            if (preRefreshing && !nowRefreshing && !this._pullUpTimer) {
-                this.pullUpFinish();
-            } else if (!preRefreshing && nowRefreshing) {
-                // this.triggerRefresh();
-            }
+            // triggerPullToRefresh
+            this.triggerPullToRefresh();
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var _this2 = this;
 
-            if (this.props.getScrollContainer) {
-                setTimeout(function () {
-                    _this2.initPullUp(_this2.props.getScrollContainer());
-                });
-            } else {
-                this.initPullUp(__WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.findDOMNode(this.containerRef));
-            }
+            // `getScrollContainer` most likely return React.Node at the next tick. Need setTimeout
+            setTimeout(function () {
+                _this2.initPullUp(_this2.props.getScrollContainer() || _this2.containerRef);
+                _this2.triggerPullToRefresh();
+            });
         }
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
-            if (this.props.getScrollContainer) {
-                this.destroyPullUp(this.props.getScrollContainer());
-            } else {
-                this.destroyPullUp(__WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.findDOMNode(this.containerRef));
-            }
+            // Should have no setTimeout here!
+            this.destroyPullUp(this.props.getScrollContainer() || this.containerRef);
         }
-        // triggerRefresh = () => {}
-
     }, {
         key: 'render',
         value: function render() {
@@ -2131,47 +2124,39 @@ var PullToRefresh = function (_React$Component) {
                 getScrollContainer = _a.getScrollContainer,
                 direction = _a.direction,
                 onRefresh = _a.onRefresh,
-                renderer = _a.renderer,
+                refreshing = _a.refreshing,
+                indicator = _a.indicator,
                 distanceToRefresh = _a.distanceToRefresh,
-                restProps = __rest(_a, ["className", "prefixCls", "children", "getScrollContainer", "direction", "onRefresh", "renderer", "distanceToRefresh"]);
-            // delete restProps.refreshing
-            var renderRefresh = function renderRefresh() {
-                var defaultRenderer = _this3.pullUpDisplay.deactivate;
-                switch (_this3.state.pullUp) {
-                    case 'activate':
-                    case 'deactivate':
-                    case 'release':
-                    case 'finish':
-                        defaultRenderer = _this3.pullUpDisplay[_this3.state.pullUp];
-                    default:
-                }
-                var cls = __WEBPACK_IMPORTED_MODULE_7_classnames___default()(prefixCls + '-content', getScrollContainer && prefixCls + '-' + direction, !_this3.state.isTouching && _this3.state.pullUp && prefixCls + '-transition');
+                restProps = __rest(_a, ["className", "prefixCls", "children", "getScrollContainer", "direction", "onRefresh", "refreshing", "indicator", "distanceToRefresh"]);
+            var renderRefresh = function renderRefresh(cls) {
+                var cla = __WEBPACK_IMPORTED_MODULE_6_classnames___default()(cls, !_this3.state.dragOnEdge && prefixCls + '-transition');
                 return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                     'div',
                     { className: prefixCls + '-content-wrapper' },
                     __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                         'div',
-                        { className: cls, ref: function ref(el) {
+                        { className: cla, ref: function ref(el) {
                                 return _this3.contentRef = el;
                             } },
-                        children,
+                        direction === UP ? children : null,
                         __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                             'div',
                             { className: prefixCls + '-indicator' },
-                            renderer ? renderer(_this3.state.pullUp) : defaultRenderer
-                        )
+                            indicator[_this3.state.currSt] || INDICATOR[_this3.state.currSt]
+                        ),
+                        direction === DOWN ? children : null
                     )
                 );
             };
-            if (getScrollContainer) {
-                return renderRefresh();
+            if (getScrollContainer()) {
+                return renderRefresh(prefixCls + '-content ' + prefixCls + '-' + direction);
             }
             return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                 'div',
                 __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({ ref: function ref(el) {
                         return _this3.containerRef = el;
-                    }, className: __WEBPACK_IMPORTED_MODULE_7_classnames___default()(className, prefixCls, prefixCls + '-' + direction) }, restProps),
-                renderRefresh()
+                    }, className: __WEBPACK_IMPORTED_MODULE_6_classnames___default()(className, prefixCls, prefixCls + '-' + direction) }, restProps),
+                renderRefresh(prefixCls + '-content')
             );
         }
     }]);
@@ -2183,8 +2168,12 @@ var PullToRefresh = function (_React$Component) {
 
 PullToRefresh.defaultProps = {
     prefixCls: 'rmc-pull-to-refresh',
-    direction: 'down',
-    distanceToRefresh: 25
+    getScrollContainer: function getScrollContainer() {
+        return undefined;
+    },
+    direction: DOWN,
+    distanceToRefresh: 25,
+    indicator: INDICATOR
 };
 
 /***/ }),
@@ -2361,7 +2350,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.2.2 IsArray(argument)
-var cof = __webpack_require__(47);
+var cof = __webpack_require__(46);
 module.exports = Array.isArray || function isArray(arg) {
   return cof(arg) == 'Array';
 };
@@ -2465,8 +2454,8 @@ var meta = module.exports = {
 var getKeys = __webpack_require__(17);
 var gOPS = __webpack_require__(32);
 var pIE = __webpack_require__(18);
-var toObject = __webpack_require__(57);
-var IObject = __webpack_require__(51);
+var toObject = __webpack_require__(56);
+var IObject = __webpack_require__(50);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
@@ -2521,7 +2510,7 @@ module.exports = __webpack_require__(4) ? Object.defineProperties : function def
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(10);
-var gOPN = __webpack_require__(54).f;
+var gOPN = __webpack_require__(53).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -2546,7 +2535,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(5);
-var toObject = __webpack_require__(57);
+var toObject = __webpack_require__(56);
 var IE_PROTO = __webpack_require__(34)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
@@ -2575,7 +2564,7 @@ module.exports = {
   set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
     function (test, buggy, set) {
       try {
-        set = __webpack_require__(48)(Function.call, __webpack_require__(53).f(Object.prototype, '__proto__').set, 2);
+        set = __webpack_require__(47)(Function.call, __webpack_require__(52).f(Object.prototype, '__proto__').set, 2);
         set(test, []);
         buggy = !(test instanceof Array);
       } catch (e) { buggy = true; }
@@ -2653,7 +2642,7 @@ var toIObject = __webpack_require__(10);
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(52)(Array, 'Array', function (iterated, kind) {
+module.exports = __webpack_require__(51)(Array, 'Array', function (iterated, kind) {
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -2731,7 +2720,7 @@ $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(92).set });
 var $at = __webpack_require__(93)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(52)(String, 'String', function (iterated) {
+__webpack_require__(51)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -2757,7 +2746,7 @@ var global = __webpack_require__(1);
 var has = __webpack_require__(5);
 var DESCRIPTORS = __webpack_require__(4);
 var $export = __webpack_require__(8);
-var redefine = __webpack_require__(56);
+var redefine = __webpack_require__(55);
 var META = __webpack_require__(87).KEY;
 var $fails = __webpack_require__(13);
 var shared = __webpack_require__(35);
@@ -2774,7 +2763,7 @@ var toPrimitive = __webpack_require__(37);
 var createDesc = __webpack_require__(19);
 var _create = __webpack_require__(31);
 var gOPNExt = __webpack_require__(90);
-var $GOPD = __webpack_require__(53);
+var $GOPD = __webpack_require__(52);
 var $DP = __webpack_require__(6);
 var $keys = __webpack_require__(17);
 var gOPD = $GOPD.f;
@@ -2899,7 +2888,7 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(54).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(53).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(18).f = $propertyIsEnumerable;
   __webpack_require__(32).f = $getOwnPropertySymbols;
 
@@ -4031,7 +4020,7 @@ var react = __webpack_require__(16);
 var invariant = __webpack_require__(7);
 var ExecutionEnvironment = __webpack_require__(40);
 var _assign = __webpack_require__(15);
-var EventListener = __webpack_require__(59);
+var EventListener = __webpack_require__(58);
 var require$$0 = __webpack_require__(22);
 var hyphenateStyleName = __webpack_require__(111);
 var emptyFunction = __webpack_require__(2);
@@ -4040,10 +4029,10 @@ var performanceNow = __webpack_require__(115);
 var propTypes = __webpack_require__(118);
 var emptyObject = __webpack_require__(21);
 var checkPropTypes = __webpack_require__(41);
-var shallowEqual = __webpack_require__(63);
-var containsNode = __webpack_require__(60);
-var focusNode = __webpack_require__(61);
-var getActiveElement = __webpack_require__(62);
+var shallowEqual = __webpack_require__(62);
+var containsNode = __webpack_require__(59);
+var focusNode = __webpack_require__(60);
+var getActiveElement = __webpack_require__(61);
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -21250,7 +21239,7 @@ module.exports = ReactDOMFiberEntry;
  LICENSE file in the root directory of this source tree.
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(16);__webpack_require__(7);var l=__webpack_require__(40),n=__webpack_require__(15),ba=__webpack_require__(59),ca=__webpack_require__(2),da=__webpack_require__(21),ea=__webpack_require__(63),fa=__webpack_require__(60),ha=__webpack_require__(61),ia=__webpack_require__(62);
+var aa=__webpack_require__(16);__webpack_require__(7);var l=__webpack_require__(40),n=__webpack_require__(15),ba=__webpack_require__(58),ca=__webpack_require__(2),da=__webpack_require__(21),ea=__webpack_require__(62),fa=__webpack_require__(59),ha=__webpack_require__(60),ia=__webpack_require__(61);
 function w(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:w("227");
 function ja(a){switch(a){case "svg":return"http://www.w3.org/2000/svg";case "math":return"http://www.w3.org/1998/Math/MathML";default:return"http://www.w3.org/1999/xhtml"}}
 var ka={Namespaces:{html:"http://www.w3.org/1999/xhtml",mathml:"http://www.w3.org/1998/Math/MathML",svg:"http://www.w3.org/2000/svg"},getIntrinsicNamespace:ja,getChildNamespace:function(a,b){return null==a||"http://www.w3.org/1999/xhtml"===a?ja(b):"http://www.w3.org/2000/svg"===a&&"foreignObject"===b?"http://www.w3.org/1999/xhtml":a}},la=null,oa={};

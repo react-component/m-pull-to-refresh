@@ -5,6 +5,11 @@
 .rmc-pull-to-refresh-content-wrapper {
   overflow: hidden;
 }
+.rmc-pull-to-refresh-transition {
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
 .rmc-pull-to-refresh-indicator {
   color: grey;
   text-align: center;
@@ -16,11 +21,6 @@
 }
 .rmc-pull-to-refresh-up .rmc-pull-to-refresh-indicator {
   margin-bottom: -25px;
-}
-.rmc-pull-to-refresh-transition {
-  transition: -webkit-transform 0.3s;
-  transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
 }
 
 /*# sourceMappingURL=common.css.map*/
