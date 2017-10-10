@@ -1,11 +1,19 @@
 import React from 'react';
-export default interface PropsType {
-  getScrollContainer: () => React.ReactElement<any>;
-  direction?: 'down' | 'up';
+
+export interface Indicator {
+  activate?: React.ReactNode;
+  deactivate?: React.ReactNode;
+  release?: React.ReactNode;
+  finish?: React.ReactNode;
+}
+
+export interface PropsType {
+  getScrollContainer: () => React.ReactNode;
+  direction: 'down' | 'up';
   refreshing?: boolean;
   distanceToRefresh: number;
   onRefresh: () => void;
-  renderer: (arg: string) => any;
+  indicator: Indicator;
   prefixCls?: string;
   className?: string;
 }

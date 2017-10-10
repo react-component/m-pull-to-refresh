@@ -7,4 +7,4 @@
 
 - Remove zscroller dependency.
 - Support web's native roll.
-- Add `direction` `onRefresh` `renderer` props and Remove `icon` `loading` `loadingFunction` `scrollerOptions` props.
+- Add `direction` `onRefresh` `indicator` props and Remove `icon` `loading` `loadingFunction` `scrollerOptions` props.

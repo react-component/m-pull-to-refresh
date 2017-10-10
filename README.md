@@ -62,7 +62,7 @@ see example
 | distanceToRefresh | distance to pull to refresh | number | 50  |
 | refreshing | Whether the view should be indicating an active refresh | bool | false |
 | onRefresh  | Called when the view starts refreshing. | () => void | - |
-| renderer  | custom renderer text, the params are one of `activate` / `deactivate` / `release` / `finish` | (arg) => any | - |
+| indicator  | indicator config | Object | `{ activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' }` |
 | className | additional css class of root dom node | String | - |
 | prefixCls | prefix class | String | 'rmc-pull-to-refresh' |
 

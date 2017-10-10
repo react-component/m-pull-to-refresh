@@ -5,8 +5,10 @@
     &-wrapper {
       overflow: hidden;
     }
-
     transform-origin: left top 0px;
+  }
+  &-transition {
+    transition: transform 0.3s;
   }
 
   &-indicator {
@@ -15,16 +17,12 @@
     height: 25px;
     line-height: 25px;
   }
-  
+
   &-down .@{pull-to-refresh}-indicator {
     margin-top: -25px;
   }
-  
+
   &-up .@{pull-to-refresh}-indicator {
     margin-bottom: -25px;
-  }
-  
-  &-transition {
-    transition: transform 0.3s;
   }
 }

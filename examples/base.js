@@ -5,14 +5,15 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
   state = {
-    refreshing: true,
+    refreshing: false,
     switchContainer: true,
   };
   componentDidMount() {
-    setTimeout(() => this.setState({ refreshing: false }), 1000);
+    // setTimeout(() => { this.setState({ refreshing: true }); }, 10);
+    // setTimeout(() => { this.setState({ refreshing: true }); }, 100);
+    // setTimeout(() => { this.setState({ refreshing: false }); }, 3000);
   }
   render() {
-
     return (<div>
       <button
         style={{ display: 'inline-block', marginBottom: 30, border: 1 }}
@@ -27,7 +28,7 @@ class App extends React.Component {
         style={{ height: 200, overflow: 'auto', border: '1px solid #ccc' }}
         {...(this.state.switchContainer ? { getScrollContainer: () => document.body } : {}) }
         className="forTest"
-        direction="up"
+        direction="down"
         refreshing={this.state.refreshing}
         onRefresh={() => {
           this.setState({ refreshing: true });
@@ -35,6 +36,7 @@ class App extends React.Component {
             this.setState({ refreshing: false });
           }, 1000);
         }}
+        indicator={{ deactivate: '下拉' }}
       >
         {[1, 2, 3, 4, 5, 6, 7].map(i =>
           <div key={i} style={{ textAlign: 'center', padding: 20 }}>item {i}</div>)}

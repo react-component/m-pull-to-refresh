@@ -1,12 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import PropsType from './PropsType';
-
-export class StateType {
-  pullUp: any;
-  isTouching: boolean;
-}
+import { PropsType, Indicator } from './PropsType';
 
 function setTransform(nodeStyle: any, value: any) {
   nodeStyle.transform = value;
@@ -14,94 +8,85 @@ function setTransform(nodeStyle: any, value: any) {
   nodeStyle.MozTransform = value;
 }
 
-export default class PullToRefresh extends React.Component<PropsType, StateType> {
+const DOWN = 'down';
+const UP = 'up';
+const INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
+
+export default class PullToRefresh extends React.Component<PropsType, any> {
   static defaultProps = {
     prefixCls: 'rmc-pull-to-refresh',
-    direction: 'down',
+    getScrollContainer: () => undefined,
+    direction: DOWN,
     distanceToRefresh: 25,
+    indicator: INDICATOR as Indicator,
   } as PropsType;
 
   // https://github.com/yiminghe/zscroller/blob/2d97973287135745818a0537712235a39a6a62a1/src/Scroller.js#L355
-  // states: `activate` / `deactivate` / `release` / `finish`
+  // currSt: `activate` / `deactivate` / `release` / `finish`
   state = {
-    pullUp: '',
-    isTouching: false,
-  };
-
-  pullUpStats: any = {
-    activate: 'activate',
-    deactivate: 'deactivate',
-    release: 'release',
-    finish: 'finish',
-  };
-
-  pullUpDisplay: any = {
-    activate: '释放刷新',
-    deactivate: '上拉 ↑',
-    release: '加载中...',
-    finish: '完成刷新',
+    currSt: '',
+    dragOnEdge: false,
   };
 
   containerRef: any;
   contentRef: any;
   _to: any;
-  _pullUpScreenY: any;
-  _pullUpStartScreenY: any;
-  _pullUpLastScreenY: any;
-  _pullUpTimer: any;
+  _ScreenY: any;
+  _startScreenY: any;
+  _lastScreenY: any;
+  _timer: any;
 
   componentDidUpdate(prevProps: any) {
     if (prevProps === this.props) {
       return;
     }
-    const preRefreshing = prevProps.refreshing;
-    const nowRefreshing = this.props.refreshing;
-    if (preRefreshing && !nowRefreshing && !this._pullUpTimer) {
-      this.pullUpFinish();
-    } else if (!preRefreshing && nowRefreshing) {
-      // this.triggerRefresh();
-    }
+    // triggerPullToRefresh
+    this.triggerPullToRefresh();
   }
 
   componentDidMount() {
-    if (this.props.getScrollContainer) {
-      setTimeout(() => {
-        this.initPullUp(this.props.getScrollContainer());
-      });
-    } else {
-      this.initPullUp(ReactDOM.findDOMNode(this.containerRef));
-    }
+    // `getScrollContainer` most likely return React.Node at the next tick. Need setTimeout
+    setTimeout(() => {
+      this.initPullUp(this.props.getScrollContainer() || this.containerRef);
+      this.triggerPullToRefresh();
+    });
   }
 
   componentWillUnmount() {
-    if (this.props.getScrollContainer) {
-      this.destroyPullUp(this.props.getScrollContainer());
-    } else {
-      this.destroyPullUp(ReactDOM.findDOMNode(this.containerRef));
+    // Should have no setTimeout here!
+    this.destroyPullUp(this.props.getScrollContainer() || this.containerRef);
+  }
+
+  triggerPullToRefresh = () => {
+    // 在初始化时、用代码 自动 触发 pullToRefresh
+    // 注意：当 direction 为 up 时，当 visible length < content length 时、则看不到效果
+    if (!this.state.dragOnEdge) {
+      if (this.props.refreshing) {
+        if (this.props.direction === UP) {
+          this._lastScreenY = - this.props.distanceToRefresh - 1;
+        }
+        if (this.props.direction === DOWN) {
+          this._lastScreenY = this.props.distanceToRefresh + 1;
+        }
+        setTransform(this.contentRef.style, `translate3d(0px,${this._lastScreenY}px,0)`);
+        this.setState({ currSt: 'release' });
+      } else {
+        this.reset();
+        this.setState({ currSt: 'finish' });
+      }
     }
   }
 
-  genEvtHandler = (ele: any) => {
-    return {
+  initPullUp = (ele: any) => {
+    this._to = {
       touchstart: this.onTouchStart.bind(this, ele),
       touchmove: this.onTouchMove.bind(this, ele),
       touchend: this.onTouchEnd.bind(this, ele),
       touchcancel: this.onTouchEnd.bind(this, ele),
     };
-  }
-
-  initPullUp = (ele: any) => {
-    this._to = this.genEvtHandler(ele);
     Object.keys(this._to).forEach(key => {
       ele.addEventListener(key, this._to[key]);
     });
-    if (this.props.refreshing) {
-      this.setState({ pullUp: this.pullUpStats.release }, () => {
-        this._pullUpLastScreenY = - this.props.distanceToRefresh - 1;
-        setTransform(this.contentRef.style,
-          `translate3d(0px,${this._pullUpLastScreenY}px,0)`);
-      });
-    }
   }
 
   destroyPullUp = (ele: any) => {
@@ -111,113 +96,110 @@ export default class PullToRefresh extends React.Component<PropsType, StateType>
   }
 
   onTouchStart = (_ele: any, e: any) => {
-    this._pullUpScreenY = this._pullUpStartScreenY = e.touches[0].screenY;
-    // 一开始 refreshing 为 true 时 this._pullUpLastScreenY 有值
-    this._pullUpLastScreenY = this._pullUpLastScreenY || 0;
-    this.setState({ isTouching: true });
+    this._ScreenY = this._startScreenY = e.touches[0].screenY;
+    // 一开始 refreshing 为 true 时 this._lastScreenY 有值
+    this._lastScreenY = this._lastScreenY || 0;
+  }
+
+  isEdge = (ele: any, direction: string) => {
+    const container = this.props.getScrollContainer();
+    if (container && container === document.body) {
+      // In chrome61 `document.body.scrollTop` is invalid
+      const scrollNode = document.scrollingElement ? document.scrollingElement : document.body;
+      if (direction === UP) {
+        return scrollNode.scrollHeight - scrollNode.scrollTop <= window.innerHeight;
+      }
+      if (direction === DOWN) {
+        return scrollNode.scrollTop <= 0;
+      }
+    }
+    if (direction === UP) {
+      return ele.scrollHeight - ele.scrollTop === ele.clientHeight;
+    }
+    if (direction === DOWN) {
+      return ele.scrollTop <= 0;
+    }
   }
 
   onTouchMove = (ele: any, e: any) => {
-
     // 使用 pageY 对比有问题
     const _screenY = e.touches[0].screenY;
-    if (this._pullUpStartScreenY - _screenY > 0) {
-      // console.log('is pull up', _screenY);
+    const { direction } = this.props;
 
-      let isReachBottom;
-      if (this.props.getScrollContainer) {
-        // In chrome61 `document.body.scrollTop` is invalid, here `ele === document.body`
-        const scrollNode = document.scrollingElement ? document.scrollingElement : ele;
-        isReachBottom = ele.scrollHeight - scrollNode.scrollTop <= window.innerHeight;
-        // console.log(ele.scrollHeight, scrollNode.scrollTop, window.innerHeight);
+    // 拖动方向不符合的不处理
+    if (direction === UP && this._startScreenY < _screenY ||
+      direction === DOWN && this._startScreenY > _screenY) {
+      return;
+    }
+
+    if (this.isEdge(ele, direction)) {
+      this.setState({ dragOnEdge: true });
+
+      const _diff = Math.round(_screenY - this._ScreenY);
+      this._ScreenY = _screenY;
+      this._lastScreenY += _diff;
+
+      setTransform(this.contentRef.style, `translate3d(0px,${this._lastScreenY}px,0)`);
+
+      if (Math.abs(this._lastScreenY) < this.props.distanceToRefresh) {
+        if (this.state.currSt !== 'deactivate') {
+          // console.log('back to the distance');
+          this.setState({ currSt: 'deactivate' });
+        }
       } else {
-        isReachBottom = ele.scrollHeight - ele.scrollTop === ele.clientHeight;
-      }
-      if (isReachBottom) {
-        const _diff = Math.round(_screenY - this._pullUpScreenY);
-        this._pullUpScreenY = _screenY;
-        this._pullUpLastScreenY += _diff;
-
-        setTransform(this.contentRef.style,
-          `translate3d(0px,${this._pullUpLastScreenY}px,0)`);
-
-        if (Math.abs(this._pullUpLastScreenY) < this.props.distanceToRefresh) {
-          if (this.state.pullUp !== this.pullUpStats.deactivate) {
-            // console.log('back to the distance');
-            this.setState({ pullUp: this.pullUpStats.deactivate });
-          }
-        } else {
-          if (this.state.pullUp === this.pullUpStats.deactivate) {
-            // console.log('reach to the distance');
-            this.setState({ pullUp: this.pullUpStats.activate });
-          }
+        if (this.state.currSt === 'deactivate') {
+          // console.log('reach to the distance');
+          this.setState({ currSt: 'activate' });
         }
       }
     }
   }
 
   onTouchEnd = () => {
-    this.setState({ isTouching: false });
-    if (this.state.pullUp === this.pullUpStats.deactivate) {
-      this.pullUpFinish();
-    } else if (this.state.pullUp === this.pullUpStats.activate) {
-      this.setState({ pullUp: this.pullUpStats.release });
-      this._pullUpTimer = setTimeout(() => {
+    this.setState({ dragOnEdge: false });
+    if (this.state.currSt === 'activate') {
+      this.setState({ currSt: 'release' });
+      this._timer = setTimeout(() => {
         if (!this.props.refreshing) {
-          this.pullUpFinish();
+          this.reset();
+          this.setState({ currSt: 'finish' });
         }
-        this._pullUpTimer = undefined;
+        this._timer = undefined;
       }, 1000);
       this.props.onRefresh();
+    } else {
+      this.reset();
     }
   }
 
-  pullUpFinish = () => {
-    this._pullUpLastScreenY = 0;
+  reset = () => {
+    this._lastScreenY = 0;
     setTransform(this.contentRef.style, `translate3d(0px,0px,0)`);
-    if (this.state.pullUp === this.pullUpStats.release) {
-      this.setState({ pullUp: this.pullUpStats.finish });
-    }
   }
-
-  // triggerRefresh = () => {}
 
   render() {
-    let {
+    const {
       className, prefixCls, children, getScrollContainer,
-      direction, onRefresh, renderer, distanceToRefresh, ...restProps,
+      direction, onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
     } = this.props;
 
-    // delete restProps.refreshing
-
-    const renderRefresh = () => {
-      let defaultRenderer = this.pullUpDisplay.deactivate;
-      switch (this.state.pullUp) {
-        case 'activate':
-        case 'deactivate':
-        case 'release':
-        case 'finish':
-          defaultRenderer = this.pullUpDisplay[this.state.pullUp];
-        default:
-      }
-      const cls = classNames(`${prefixCls}-content`,
-        getScrollContainer && `${prefixCls}-${direction}`,
-        !this.state.isTouching && this.state.pullUp && `${prefixCls}-transition`,
-      );
+    const renderRefresh = (cls: string) => {
+      const cla = classNames(cls, !this.state.dragOnEdge && `${prefixCls}-transition`);
       return (
         <div className={`${prefixCls}-content-wrapper`}>
-          <div className={cls} ref={el => this.contentRef = el}>
-            {children}
+          <div className={cla} ref={el => this.contentRef = el}>
+            {direction === UP ? children : null}
             <div className={`${prefixCls}-indicator`}>
-              {renderer ? renderer(this.state.pullUp) : defaultRenderer}
+              {(indicator as any)[this.state.currSt] || (INDICATOR as any)[this.state.currSt]}
             </div>
+            {direction === DOWN ? children : null}
           </div>
         </div>
       );
     };
 
-    if (getScrollContainer) {
-      return renderRefresh();
+    if (getScrollContainer()) {
+      return renderRefresh(`${prefixCls}-content ${prefixCls}-${direction}`);
     }
     return (
       <div
@@ -225,7 +207,7 @@ export default class PullToRefresh extends React.Component<PropsType, StateType>
         className={classNames(className, prefixCls, `${prefixCls}-${direction}`)}
         {...restProps}
       >
-        {renderRefresh()}
+        {renderRefresh(`${prefixCls}-content`)}
       </div>
     );
   }
