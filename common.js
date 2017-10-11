@@ -1995,7 +1995,7 @@ var PullToRefresh = function (_React$Component) {
                 }
             }
         };
-        _this.initPullUp = function (ele) {
+        _this.init = function (ele) {
             _this._to = {
                 touchstart: _this.onTouchStart.bind(_this, ele),
                 touchmove: _this.onTouchMove.bind(_this, ele),
@@ -2006,7 +2006,7 @@ var PullToRefresh = function (_React$Component) {
                 ele.addEventListener(key, _this._to[key]);
             });
         };
-        _this.destroyPullUp = function (ele) {
+        _this.destroy = function (ele) {
             Object.keys(_this._to).forEach(function (key) {
                 ele.removeEventListener(key, _this._to[key]);
             });
@@ -2102,7 +2102,7 @@ var PullToRefresh = function (_React$Component) {
 
             // `getScrollContainer` most likely return React.Node at the next tick. Need setTimeout
             setTimeout(function () {
-                _this2.initPullUp(_this2.props.getScrollContainer() || _this2.containerRef);
+                _this2.init(_this2.props.getScrollContainer() || _this2.containerRef);
                 _this2.triggerPullToRefresh();
             });
         }
@@ -2110,7 +2110,7 @@ var PullToRefresh = function (_React$Component) {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             // Should have no setTimeout here!
-            this.destroyPullUp(this.props.getScrollContainer() || this.containerRef);
+            this.destroy(this.props.getScrollContainer() || this.containerRef);
         }
     }, {
         key: 'render',
@@ -2128,6 +2128,7 @@ var PullToRefresh = function (_React$Component) {
                 indicator = _a.indicator,
                 distanceToRefresh = _a.distanceToRefresh,
                 restProps = __rest(_a, ["className", "prefixCls", "children", "getScrollContainer", "direction", "onRefresh", "refreshing", "indicator", "distanceToRefresh"]);
+            // set key="content" and key="indicator" for preact. Otherwise it will be diff wrong.
             var renderRefresh = function renderRefresh(cls) {
                 var cla = __WEBPACK_IMPORTED_MODULE_6_classnames___default()(cls, !_this3.state.dragOnEdge && prefixCls + '-transition');
                 return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
@@ -2137,11 +2138,11 @@ var PullToRefresh = function (_React$Component) {
                         'div',
                         { className: cla, ref: function ref(el) {
                                 return _this3.contentRef = el;
-                            } },
+                            }, key: 'content' },
                         direction === UP ? children : null,
                         __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                             'div',
-                            { className: prefixCls + '-indicator' },
+                            { className: prefixCls + '-indicator', key: 'indicator' },
                             indicator[_this3.state.currSt] || INDICATOR[_this3.state.currSt]
                         ),
                         direction === DOWN ? children : null
