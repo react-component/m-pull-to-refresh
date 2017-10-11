@@ -78,6 +78,10 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   }
 
   init = (ele: any) => {
+    if (!ele) {
+      // like return in destroy fn ???!!
+      return;
+    }
     this._to = {
       touchstart: this.onTouchStart.bind(this, ele),
       touchmove: this.onTouchMove.bind(this, ele),
@@ -90,6 +94,10 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   }
 
   destroy = (ele: any) => {
+    if (!this._to || !ele) {
+      // componentWillUnmount fire before componentDidMount, like forceUpdate ???!!
+      return;
+    }
     Object.keys(this._to).forEach(key => {
       ele.removeEventListener(key, this._to[key]);
     });
