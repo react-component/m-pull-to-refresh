@@ -1987,11 +1987,14 @@ var PullToRefresh = function (_React$Component) {
                     if (_this.props.direction === DOWN) {
                         _this._lastScreenY = _this.props.distanceToRefresh + 1;
                     }
-                    setTransform(_this.contentRef.style, 'translate3d(0px,' + _this._lastScreenY + 'px,0)');
-                    _this.setState({ currSt: 'release' });
+                    // change dom need after setState
+                    _this.setState({ currSt: 'release' }, function () {
+                        return setTransform(_this.contentRef.style, 'translate3d(0px,' + _this._lastScreenY + 'px,0)');
+                    });
                 } else {
-                    _this.reset();
-                    _this.setState({ currSt: 'finish' });
+                    _this.setState({ currSt: 'finish' }, function () {
+                        return _this.reset();
+                    });
                 }
             }
         };
@@ -2045,7 +2048,9 @@ var PullToRefresh = function (_React$Component) {
                 return;
             }
             if (_this.isEdge(ele, direction)) {
-                _this.setState({ dragOnEdge: true });
+                if (!_this.state.dragOnEdge) {
+                    _this.setState({ dragOnEdge: true });
+                }
                 var _diff = Math.round(_screenY - _this._ScreenY);
                 _this._ScreenY = _screenY;
                 _this._lastScreenY += _diff;
@@ -2064,13 +2069,16 @@ var PullToRefresh = function (_React$Component) {
             }
         };
         _this.onTouchEnd = function () {
-            _this.setState({ dragOnEdge: false });
+            if (_this.state.dragOnEdge) {
+                _this.setState({ dragOnEdge: false });
+            }
             if (_this.state.currSt === 'activate') {
                 _this.setState({ currSt: 'release' });
                 _this._timer = setTimeout(function () {
                     if (!_this.props.refreshing) {
-                        _this.reset();
-                        _this.setState({ currSt: 'finish' });
+                        _this.setState({ currSt: 'finish' }, function () {
+                            return _this.reset();
+                        });
                     }
                     _this._timer = undefined;
                 }, 1000);
@@ -2089,10 +2097,10 @@ var PullToRefresh = function (_React$Component) {
     __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(PullToRefresh, [{
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps) {
-            if (prevProps === this.props) {
+            if (prevProps === this.props || prevProps.refreshing === this.props.refreshing) {
                 return;
             }
-            // triggerPullToRefresh
+            // triggerPullToRefresh 需要尽可能减少 setState 次数
             this.triggerPullToRefresh();
         }
     }, {
@@ -2128,7 +2136,6 @@ var PullToRefresh = function (_React$Component) {
                 indicator = _a.indicator,
                 distanceToRefresh = _a.distanceToRefresh,
                 restProps = __rest(_a, ["className", "prefixCls", "children", "getScrollContainer", "direction", "onRefresh", "refreshing", "indicator", "distanceToRefresh"]);
-            // set key="content" and key="indicator" for preact. Otherwise it will be diff wrong.
             var renderRefresh = function renderRefresh(cls) {
                 var cla = __WEBPACK_IMPORTED_MODULE_6_classnames___default()(cls, !_this3.state.dragOnEdge && prefixCls + '-transition');
                 return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
@@ -2138,11 +2145,11 @@ var PullToRefresh = function (_React$Component) {
                         'div',
                         { className: cla, ref: function ref(el) {
                                 return _this3.contentRef = el;
-                            }, key: 'content' },
+                            } },
                         direction === UP ? children : null,
                         __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                             'div',
-                            { className: prefixCls + '-indicator', key: 'indicator' },
+                            { className: prefixCls + '-indicator' },
                             indicator[_this3.state.currSt] || INDICATOR[_this3.state.currSt]
                         ),
                         direction === DOWN ? children : null

@@ -59,7 +59,7 @@ var Lv = function (_React$Component) {
       var _this2 = this;
 
       var child = this.props.children;
-      if (this.props.pullToRefresh && this.lv) {
+      if (this.props.pullToRefresh) {
         child = __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(this.props.pullToRefresh, {
           getScrollContainer: function getScrollContainer() {
             return _this2.lv;
