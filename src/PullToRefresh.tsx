@@ -37,10 +37,10 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   _timer: any;
 
   componentDidUpdate(prevProps: any) {
-    if (prevProps === this.props) {
+    if (prevProps === this.props || prevProps.refreshing === this.props.refreshing) {
       return;
     }
-    // triggerPullToRefresh
+    // triggerPullToRefresh 需要尽可能减少 setState 次数
     this.triggerPullToRefresh();
   }
 
@@ -68,11 +68,11 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
         if (this.props.direction === DOWN) {
           this._lastScreenY = this.props.distanceToRefresh + 1;
         }
-        setTransform(this.contentRef.style, `translate3d(0px,${this._lastScreenY}px,0)`);
-        this.setState({ currSt: 'release' });
+        // change dom need after setState
+        this.setState({ currSt: 'release' }, () =>
+          setTransform(this.contentRef.style, `translate3d(0px,${this._lastScreenY}px,0)`));
       } else {
-        this.reset();
-        this.setState({ currSt: 'finish' });
+        this.setState({ currSt: 'finish' }, () => this.reset());
       }
     }
   }
@@ -133,7 +133,9 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     }
 
     if (this.isEdge(ele, direction)) {
-      this.setState({ dragOnEdge: true });
+      if (!this.state.dragOnEdge) {
+        this.setState({ dragOnEdge: true });
+      }
 
       const _diff = Math.round(_screenY - this._ScreenY);
       this._ScreenY = _screenY;
@@ -156,13 +158,14 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   }
 
   onTouchEnd = () => {
-    this.setState({ dragOnEdge: false });
+    if (this.state.dragOnEdge) {
+      this.setState({ dragOnEdge: false });
+    }
     if (this.state.currSt === 'activate') {
       this.setState({ currSt: 'release' });
       this._timer = setTimeout(() => {
         if (!this.props.refreshing) {
-          this.reset();
-          this.setState({ currSt: 'finish' });
+          this.setState({ currSt: 'finish' }, () => this.reset());
         }
         this._timer = undefined;
       }, 1000);
@@ -183,14 +186,13 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       direction, onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
     } = this.props;
 
-    // set key="content" and key="indicator" for preact. Otherwise it will be diff wrong.
     const renderRefresh = (cls: string) => {
       const cla = classNames(cls, !this.state.dragOnEdge && `${prefixCls}-transition`);
       return (
         <div className={`${prefixCls}-content-wrapper`}>
-          <div className={cla} ref={el => this.contentRef = el} key="content">
+          <div className={cla} ref={el => this.contentRef = el}>
             {direction === UP ? children : null}
-            <div className={`${prefixCls}-indicator`} key="indicator">
+            <div className={`${prefixCls}-indicator`}>
               {(indicator as any)[this.state.currSt] || (INDICATOR as any)[this.state.currSt]}
             </div>
             {direction === DOWN ? children : null}

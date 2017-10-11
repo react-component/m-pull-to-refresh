@@ -11,7 +11,7 @@ class Lv extends React.Component {
   }
   render() {
     let child = this.props.children;
-    if (this.props.pullToRefresh && this.lv) {
+    if (this.props.pullToRefresh) {
       child = React.cloneElement(this.props.pullToRefresh, {
         getScrollContainer: () => this.lv,
       }, child);
