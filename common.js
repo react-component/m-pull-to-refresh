@@ -1999,6 +1999,10 @@ var PullToRefresh = function (_React$Component) {
             }
         };
         _this.init = function (ele) {
+            if (!ele) {
+                // like return in destroy fn ???!!
+                return;
+            }
             _this._to = {
                 touchstart: _this.onTouchStart.bind(_this, ele),
                 touchmove: _this.onTouchMove.bind(_this, ele),
@@ -2010,6 +2014,10 @@ var PullToRefresh = function (_React$Component) {
             });
         };
         _this.destroy = function (ele) {
+            if (!_this._to || !ele) {
+                // componentWillUnmount fire before componentDidMount, like forceUpdate ???!!
+                return;
+            }
             Object.keys(_this._to).forEach(function (key) {
                 ele.removeEventListener(key, _this._to[key]);
             });
