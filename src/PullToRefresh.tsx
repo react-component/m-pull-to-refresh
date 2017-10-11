@@ -47,14 +47,14 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   componentDidMount() {
     // `getScrollContainer` most likely return React.Node at the next tick. Need setTimeout
     setTimeout(() => {
-      this.initPullUp(this.props.getScrollContainer() || this.containerRef);
+      this.init(this.props.getScrollContainer() || this.containerRef);
       this.triggerPullToRefresh();
     });
   }
 
   componentWillUnmount() {
     // Should have no setTimeout here!
-    this.destroyPullUp(this.props.getScrollContainer() || this.containerRef);
+    this.destroy(this.props.getScrollContainer() || this.containerRef);
   }
 
   triggerPullToRefresh = () => {
@@ -77,7 +77,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     }
   }
 
-  initPullUp = (ele: any) => {
+  init = (ele: any) => {
     this._to = {
       touchstart: this.onTouchStart.bind(this, ele),
       touchmove: this.onTouchMove.bind(this, ele),
@@ -89,7 +89,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     });
   }
 
-  destroyPullUp = (ele: any) => {
+  destroy = (ele: any) => {
     Object.keys(this._to).forEach(key => {
       ele.removeEventListener(key, this._to[key]);
     });
@@ -183,13 +183,14 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       direction, onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
     } = this.props;
 
+    // set key="content" and key="indicator" for preact. Otherwise it will be diff wrong.
     const renderRefresh = (cls: string) => {
       const cla = classNames(cls, !this.state.dragOnEdge && `${prefixCls}-transition`);
       return (
         <div className={`${prefixCls}-content-wrapper`}>
-          <div className={cla} ref={el => this.contentRef = el}>
+          <div className={cla} ref={el => this.contentRef = el} key="content">
             {direction === UP ? children : null}
-            <div className={`${prefixCls}-indicator`}>
+            <div className={`${prefixCls}-indicator`} key="indicator">
               {(indicator as any)[this.state.currSt] || (INDICATOR as any)[this.state.currSt]}
             </div>
             {direction === DOWN ? children : null}
