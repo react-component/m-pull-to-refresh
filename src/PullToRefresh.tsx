@@ -7,7 +7,7 @@ class StaticRenderer extends React.Component<any, any> {
     return nextProps.shouldUpdate;
   }
   render() {
-    return this.props.render();
+    return <div>{this.props.render()}</div>;
   }
 }
 
@@ -21,7 +21,7 @@ const DOWN = 'down';
 const UP = 'up';
 const INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
 
-export default class PullToRefresh extends React.PureComponent<PropsType, any> {
+export default class PullToRefresh extends React.Component<PropsType, any> {
   static defaultProps = {
     prefixCls: 'rmc-pull-to-refresh',
     getScrollContainer: () => undefined,
@@ -35,7 +35,6 @@ export default class PullToRefresh extends React.PureComponent<PropsType, any> {
   state = {
     currSt: '',
     dragOnEdge: false,
-    shouldUpdateChildren: false,
   };
 
   containerRef: any;
@@ -46,10 +45,11 @@ export default class PullToRefresh extends React.PureComponent<PropsType, any> {
   _lastScreenY: any;
   _timer: any;
 
-  componentWillReceiveProps(nextProps: PropsType & { children: any }) {
-    this.setState({
-      shouldUpdateChildren: this.props.children !== nextProps.children,
-    });
+  shouldUpdateChildren = false;
+
+  shouldComponentUpdate(nextProps: any) {
+    this.shouldUpdateChildren = this.props.children !== nextProps.children;
+    return true;
   }
 
   componentDidUpdate(prevProps: any) {
@@ -211,7 +211,7 @@ export default class PullToRefresh extends React.PureComponent<PropsType, any> {
     } = this.props;
 
     const renderChildren = <StaticRenderer
-      shouldUpdate={this.state.shouldUpdateChildren} render={() => children} />;
+      shouldUpdate={this.shouldUpdateChildren} render={() => children} />;
 
     const renderRefresh = (cls: string) => {
       const cla = classNames(cls, !this.state.dragOnEdge && `${prefixCls}-transition`);
