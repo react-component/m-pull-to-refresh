@@ -2,6 +2,15 @@ import React from 'react';
 import classNames from 'classnames';
 import { PropsType, Indicator } from './PropsType';
 
+class StaticRenderer extends React.Component<any, any> {
+  shouldComponentUpdate(nextProps: any) {
+    return nextProps.shouldUpdate;
+  }
+  render() {
+    return this.props.render();
+  }
+}
+
 function setTransform(nodeStyle: any, value: any) {
   nodeStyle.transform = value;
   nodeStyle.webkitTransform = value;
@@ -12,7 +21,7 @@ const DOWN = 'down';
 const UP = 'up';
 const INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
 
-export default class PullToRefresh extends React.Component<PropsType, any> {
+export default class PullToRefresh extends React.PureComponent<PropsType, any> {
   static defaultProps = {
     prefixCls: 'rmc-pull-to-refresh',
     getScrollContainer: () => undefined,
@@ -26,6 +35,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   state = {
     currSt: '',
     dragOnEdge: false,
+    shouldUpdateChildren: false,
   };
 
   containerRef: any;
@@ -35,6 +45,12 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   _startScreenY: any;
   _lastScreenY: any;
   _timer: any;
+
+  componentWillReceiveProps(nextProps: PropsType & { children: any }) {
+    this.setState({
+      shouldUpdateChildren: this.props.children !== nextProps.children,
+    });
+  }
 
   componentDidUpdate(prevProps: any) {
     if (prevProps === this.props || prevProps.refreshing === this.props.refreshing) {
@@ -194,16 +210,19 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       direction, onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
     } = this.props;
 
+    const renderChildren = <StaticRenderer
+      shouldUpdate={this.state.shouldUpdateChildren} render={() => children} />;
+
     const renderRefresh = (cls: string) => {
       const cla = classNames(cls, !this.state.dragOnEdge && `${prefixCls}-transition`);
       return (
         <div className={`${prefixCls}-content-wrapper`}>
           <div className={cla} ref={el => this.contentRef = el}>
-            {direction === UP ? children : null}
+            {direction === UP ? renderChildren : null}
             <div className={`${prefixCls}-indicator`}>
               {(indicator as any)[this.state.currSt] || (INDICATOR as any)[this.state.currSt]}
             </div>
-            {direction === DOWN ? children : null}
+            {direction === DOWN ? renderChildren : null}
           </div>
         </div>
       );
