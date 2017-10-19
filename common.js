@@ -1971,7 +1971,11 @@ var StaticRenderer = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            return this.props.render();
+            return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+                'div',
+                null,
+                this.props.render()
+            );
         }
     }]);
 
@@ -1987,8 +1991,8 @@ var DOWN = 'down';
 var UP = 'up';
 var INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
 
-var PullToRefresh = function (_React$PureComponent) {
-    __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(PullToRefresh, _React$PureComponent);
+var PullToRefresh = function (_React$Component2) {
+    __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(PullToRefresh, _React$Component2);
 
     function PullToRefresh() {
         __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, PullToRefresh);
@@ -1999,9 +2003,9 @@ var PullToRefresh = function (_React$PureComponent) {
 
         _this2.state = {
             currSt: '',
-            dragOnEdge: false,
-            shouldUpdateChildren: false
+            dragOnEdge: false
         };
+        _this2.shouldUpdateChildren = false;
         _this2.triggerPullToRefresh = function () {
             // 在初始化时、用代码 自动 触发 pullToRefresh
             // 注意：当 direction 为 up 时，当 visible length < content length 时、则看不到效果
@@ -2129,11 +2133,10 @@ var PullToRefresh = function (_React$PureComponent) {
     }
 
     __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(PullToRefresh, [{
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            this.setState({
-                shouldUpdateChildren: this.props.children !== nextProps.children
-            });
+        key: 'shouldComponentUpdate',
+        value: function shouldComponentUpdate(nextProps) {
+            this.shouldUpdateChildren = this.props.children !== nextProps.children;
+            return true;
         }
     }, {
         key: 'componentDidUpdate',
@@ -2177,7 +2180,7 @@ var PullToRefresh = function (_React$PureComponent) {
                 indicator = _a.indicator,
                 distanceToRefresh = _a.distanceToRefresh,
                 restProps = __rest(_a, ["className", "prefixCls", "children", "getScrollContainer", "direction", "onRefresh", "refreshing", "indicator", "distanceToRefresh"]);
-            var renderChildren = __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(StaticRenderer, { shouldUpdate: this.state.shouldUpdateChildren, render: function render() {
+            var renderChildren = __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(StaticRenderer, { shouldUpdate: this.shouldUpdateChildren, render: function render() {
                     return children;
                 } });
             var renderRefresh = function renderRefresh(cls) {
@@ -2214,7 +2217,7 @@ var PullToRefresh = function (_React$PureComponent) {
     }]);
 
     return PullToRefresh;
-}(__WEBPACK_IMPORTED_MODULE_5_react___default.a.PureComponent);
+}(__WEBPACK_IMPORTED_MODULE_5_react___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["a"] = (PullToRefresh);
 
