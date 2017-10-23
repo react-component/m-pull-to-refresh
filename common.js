@@ -2019,7 +2019,7 @@ var PullToRefresh = function (_React$Component2) {
                     }
                     // change dom need after setState
                     _this2.setState({ currSt: 'release' }, function () {
-                        return setTransform(_this2.contentRef.style, 'translate3d(0px,' + _this2._lastScreenY + 'px,0)');
+                        return _this2.setContentStyle(_this2._lastScreenY);
                     });
                 } else {
                     _this2.setState({ currSt: 'finish' }, function () {
@@ -2094,7 +2094,7 @@ var PullToRefresh = function (_React$Component2) {
                 var _diff = Math.round(_screenY - _this2._ScreenY);
                 _this2._ScreenY = _screenY;
                 _this2._lastScreenY += _diff;
-                setTransform(_this2.contentRef.style, 'translate3d(0px,' + _this2._lastScreenY + 'px,0)');
+                _this2.setContentStyle(_this2._lastScreenY);
                 if (Math.abs(_this2._lastScreenY) < _this2.props.distanceToRefresh) {
                     if (_this2.state.currSt !== 'deactivate') {
                         // console.log('back to the distance');
@@ -2129,7 +2129,13 @@ var PullToRefresh = function (_React$Component2) {
         };
         _this2.reset = function () {
             _this2._lastScreenY = 0;
-            setTransform(_this2.contentRef.style, 'translate3d(0px,0px,0)');
+            _this2.setContentStyle(0);
+        };
+        _this2.setContentStyle = function (ty) {
+            // todos: Why sometimes do not have `this.contentRef` ?
+            if (_this2.contentRef) {
+                setTransform(_this2.contentRef.style, 'translate3d(0px,' + ty + 'px,0)');
+            }
         };
         return _this2;
     }
