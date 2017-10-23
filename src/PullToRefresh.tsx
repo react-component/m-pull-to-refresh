@@ -160,6 +160,8 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       if (!this.state.dragOnEdge) {
         this.setState({ dragOnEdge: true });
       }
+      e.preventDefault();
+      e.stopPropagation();
 
       const _diff = Math.round(_screenY - this._ScreenY);
       this._ScreenY = _screenY;
