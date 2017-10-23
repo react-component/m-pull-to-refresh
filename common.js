@@ -2089,6 +2089,8 @@ var PullToRefresh = function (_React$Component2) {
                 if (!_this2.state.dragOnEdge) {
                     _this2.setState({ dragOnEdge: true });
                 }
+                e.preventDefault();
+                e.stopPropagation();
                 var _diff = Math.round(_screenY - _this2._ScreenY);
                 _this2._ScreenY = _screenY;
                 _this2._lastScreenY += _diff;
