@@ -85,8 +85,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
           this._lastScreenY = this.props.distanceToRefresh + 1;
         }
         // change dom need after setState
-        this.setState({ currSt: 'release' }, () =>
-          setTransform(this.contentRef.style, `translate3d(0px,${this._lastScreenY}px,0)`));
+        this.setState({ currSt: 'release' }, () => this.setContentStyle(this._lastScreenY));
       } else {
         this.setState({ currSt: 'finish' }, () => this.reset());
       }
@@ -167,7 +166,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       this._ScreenY = _screenY;
       this._lastScreenY += _diff;
 
-      setTransform(this.contentRef.style, `translate3d(0px,${this._lastScreenY}px,0)`);
+      this.setContentStyle(this._lastScreenY);
 
       if (Math.abs(this._lastScreenY) < this.props.distanceToRefresh) {
         if (this.state.currSt !== 'deactivate') {
@@ -203,7 +202,14 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
 
   reset = () => {
     this._lastScreenY = 0;
-    setTransform(this.contentRef.style, `translate3d(0px,0px,0)`);
+    this.setContentStyle(0);
+  }
+
+  setContentStyle = (ty: number) => {
+    // todos: Why sometimes do not have `this.contentRef` ?
+    if (this.contentRef) {
+      setTransform(this.contentRef.style, `translate3d(0px,${ty}px,0)`);
+    }
   }
 
   render() {
