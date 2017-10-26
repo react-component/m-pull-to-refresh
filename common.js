@@ -1987,6 +1987,7 @@ function setTransform(nodeStyle, value) {
     nodeStyle.webkitTransform = value;
     nodeStyle.MozTransform = value;
 }
+var isWebView = typeof navigator !== 'undefined' && /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
 var DOWN = 'down';
 var UP = 'up';
 var INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
@@ -2105,6 +2106,11 @@ var PullToRefresh = function (_React$Component2) {
                         // console.log('reach to the distance');
                         _this2.setState({ currSt: 'activate' });
                     }
+                }
+                // https://github.com/ant-design/ant-design-mobile/issues/573#issuecomment-339560829
+                // iOS UIWebView issue, It seems no problem in WKWebView
+                if (isWebView && e.changedTouches[0].clientY < 0) {
+                    _this2.onTouchEnd();
                 }
             }
         };
