@@ -17,6 +17,8 @@ function setTransform(nodeStyle: any, value: any) {
   nodeStyle.MozTransform = value;
 }
 
+const isWebView = typeof navigator !== 'undefined' &&
+  /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
 const DOWN = 'down';
 const UP = 'up';
 const INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
@@ -178,6 +180,12 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
           // console.log('reach to the distance');
           this.setState({ currSt: 'activate' });
         }
+      }
+
+      // https://github.com/ant-design/ant-design-mobile/issues/573#issuecomment-339560829
+      // iOS UIWebView issue, It seems no problem in WKWebView
+      if (isWebView && e.changedTouches[0].clientY < 0) {
+        this.onTouchEnd();
       }
     }
   }
