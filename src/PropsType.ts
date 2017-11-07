@@ -16,4 +16,5 @@ export interface PropsType {
   indicator: Indicator;
   prefixCls?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
