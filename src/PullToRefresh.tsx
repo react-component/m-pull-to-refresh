@@ -195,7 +195,15 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       this.setState({ dragOnEdge: false });
     }
     if (this.state.currSt === 'activate') {
-      this.setState({ currSt: 'release' });
+      if (_this2.props.direction === UP) {
+          _this2._lastScreenY = -_this2.props.distanceToRefresh - 1;
+      }
+      if (_this2.props.direction === DOWN) {
+         _this2._lastScreenY = _this2.props.distanceToRefresh + 1;
+      }
+      _this2.setState({ currSt: 'release' }, function () {
+          _this2.setContentStyle(_this2._lastScreenY);
+      });
       this._timer = setTimeout(() => {
         if (!this.props.refreshing) {
           this.setState({ currSt: 'finish' }, () => this.reset());
