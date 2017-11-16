@@ -21,6 +21,7 @@ const isWebView = typeof navigator !== 'undefined' &&
   /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
 const DOWN = 'down';
 const UP = 'up';
+const UP_DOWN = 'up_down';
 const INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
 
 export default class PullToRefresh extends React.Component<PropsType, any> {
@@ -32,13 +33,6 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     indicator: INDICATOR as Indicator,
   } as PropsType;
 
-  // https://github.com/yiminghe/zscroller/blob/2d97973287135745818a0537712235a39a6a62a1/src/Scroller.js#L355
-  // currSt: `activate` / `deactivate` / `release` / `finish`
-  state = {
-    currSt: '',
-    dragOnEdge: false,
-  };
-
   containerRef: any;
   contentRef: any;
   _to: any;
@@ -46,8 +40,21 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   _startScreenY: any;
   _lastScreenY: any;
   _timer: any;
+  _direction: string;
 
   shouldUpdateChildren = false;
+
+  constructor(props: any) {
+    super(props);
+    const { direction } = props;
+    // https://github.com/yiminghe/zscroller/blob/2d97973287135745818a0537712235a39a6a62a1/src/Scroller.js#L355
+    // currSt: `activate` / `deactivate` / `release` / `finish`
+    this.state = {
+      currSt: '',
+      dragOnEdge: false,
+    };
+    this._direction = direction === UP_DOWN ? DOWN : direction;
+  }
 
   shouldComponentUpdate(nextProps: any) {
     this.shouldUpdateChildren = this.props.children !== nextProps.children;
@@ -59,14 +66,14 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       return;
     }
     // triggerPullToRefresh 需要尽可能减少 setState 次数
-    this.triggerPullToRefresh();
+    this.triggerPullToRefresh(this._direction);
   }
 
   componentDidMount() {
     // `getScrollContainer` most likely return React.Node at the next tick. Need setTimeout
     setTimeout(() => {
       this.init(this.props.getScrollContainer() || this.containerRef);
-      this.triggerPullToRefresh();
+      this.triggerPullToRefresh(this._direction);
     });
   }
 
@@ -75,15 +82,15 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     this.destroy(this.props.getScrollContainer() || this.containerRef);
   }
 
-  triggerPullToRefresh = () => {
+  triggerPullToRefresh = (direction: string) => {
     // 在初始化时、用代码 自动 触发 pullToRefresh
     // 注意：当 direction 为 up 时，当 visible length < content length 时、则看不到效果
     if (!this.state.dragOnEdge) {
       if (this.props.refreshing) {
-        if (this.props.direction === UP) {
+        if (direction === UP) {
           this._lastScreenY = - this.props.distanceToRefresh - 1;
         }
-        if (this.props.direction === DOWN) {
+        if (direction === DOWN) {
           this._lastScreenY = this.props.distanceToRefresh + 1;
         }
         // change dom need after setState
@@ -149,15 +156,19 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   onTouchMove = (ele: any, e: any) => {
     // 使用 pageY 对比有问题
     const _screenY = e.touches[0].screenY;
-    const { direction } = this.props;
-
-    // 拖动方向不符合的不处理
-    if (direction === UP && this._startScreenY < _screenY ||
-      direction === DOWN && this._startScreenY > _screenY) {
-      return;
+    if (this.props.direction === UP_DOWN) {
+      // if props.direction = up_down, auto detect direction when ontouchmove
+      this._direction = this._startScreenY > _screenY ? UP : DOWN;
+    } else {
+      // 拖动方向不符合的不处理
+      this._direction = this.props.direction;
+      if (this._direction === UP && this._startScreenY < _screenY ||
+        this._direction === DOWN && this._startScreenY > _screenY) {
+        return;
+      }
     }
 
-    if (this.isEdge(ele, direction)) {
+    if (this.isEdge(ele, this._direction)) {
       if (!this.state.dragOnEdge) {
         this.setState({ dragOnEdge: true });
       }
@@ -223,7 +234,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   render() {
     const {
       className, prefixCls, children, getScrollContainer,
-      direction, onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
+      onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
     } = this.props;
 
     const renderChildren = <StaticRenderer
@@ -234,23 +245,22 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       return (
         <div className={`${prefixCls}-content-wrapper`}>
           <div className={cla} ref={el => this.contentRef = el}>
-            {direction === UP ? renderChildren : null}
             <div className={`${prefixCls}-indicator`}>
               {(indicator as any)[this.state.currSt] || (INDICATOR as any)[this.state.currSt]}
             </div>
-            {direction === DOWN ? renderChildren : null}
+            {renderChildren}
           </div>
         </div>
       );
     };
 
     if (getScrollContainer()) {
-      return renderRefresh(`${prefixCls}-content ${prefixCls}-${direction}`);
+      return renderRefresh(`${prefixCls}-content ${prefixCls}-${this._direction}`);
     }
     return (
       <div
         ref={el => this.containerRef = el}
-        className={classNames(className, prefixCls, `${prefixCls}-${direction}`)}
+        className={classNames(className, prefixCls, `${prefixCls}-${this._direction}`)}
         {...restProps}
       >
         {renderRefresh(`${prefixCls}-content`)}
