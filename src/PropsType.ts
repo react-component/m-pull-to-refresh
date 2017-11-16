@@ -9,7 +9,7 @@ export interface Indicator {
 
 export interface PropsType {
   getScrollContainer: () => React.ReactNode;
-  direction: 'down' | 'up' | 'all';
+  direction: 'down' | 'up' | 'up_down';
   refreshing?: boolean;
   distanceToRefresh: number;
   onRefresh: () => void;

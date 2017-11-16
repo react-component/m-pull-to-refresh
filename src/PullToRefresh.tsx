@@ -21,7 +21,7 @@ const isWebView = typeof navigator !== 'undefined' &&
   /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
 const DOWN = 'down';
 const UP = 'up';
-const ALL = 'all';
+const UP_DOWN = 'up_down';
 const INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
 
 export default class PullToRefresh extends React.Component<PropsType, any> {
@@ -40,6 +40,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   _startScreenY: any;
   _lastScreenY: any;
   _timer: any;
+  _direction: string;
 
   shouldUpdateChildren = false;
 
@@ -51,8 +52,8 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     this.state = {
       currSt: '',
       dragOnEdge: false,
-      direction: direction === ALL ? DOWN : direction,
     };
+    this._direction = direction === UP_DOWN ? DOWN : direction;
   }
 
   shouldComponentUpdate(nextProps: any) {
@@ -65,14 +66,14 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       return;
     }
     // triggerPullToRefresh 需要尽可能减少 setState 次数
-    this.triggerPullToRefresh(this.state.direction);
+    this.triggerPullToRefresh(this._direction);
   }
 
   componentDidMount() {
     // `getScrollContainer` most likely return React.Node at the next tick. Need setTimeout
     setTimeout(() => {
       this.init(this.props.getScrollContainer() || this.containerRef);
-      this.triggerPullToRefresh(this.state.direction);
+      this.triggerPullToRefresh(this._direction);
     });
   }
 
@@ -156,22 +157,19 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     // 使用 pageY 对比有问题
     const _screenY = e.touches[0].screenY;
     let direction = '';
-    if (this.props.direction === ALL) {
-      // if props.direction = all, auto detect direction when ontouchmove
-      direction = this._startScreenY > _screenY ? UP : DOWN;
-      this.setState({
-        direction,
-      });
+    if (this.props.direction === UP_DOWN) {
+      // if props.direction = up_down, auto detect direction when ontouchmove
+      this._direction = this._startScreenY > _screenY ? UP : DOWN;
     } else {
       // 拖动方向不符合的不处理
-      direction = this.props.direction;
-      if (direction === UP && this._startScreenY < _screenY ||
-        direction === DOWN && this._startScreenY > _screenY) {
+      this._direction = this.props.direction;
+      if (this._direction === UP && this._startScreenY < _screenY ||
+        this._direction === DOWN && this._startScreenY > _screenY) {
         return;
       }
     }
 
-    if (this.isEdge(ele, direction)) {
+    if (this.isEdge(ele, this._direction)) {
       if (!this.state.dragOnEdge) {
         this.setState({ dragOnEdge: true });
       }
@@ -240,8 +238,6 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
     } = this.props;
 
-    const direction = this.state.direction;
-
     const renderChildren = <StaticRenderer
       shouldUpdate={this.shouldUpdateChildren} render={() => children} />;
 
@@ -260,12 +256,12 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     };
 
     if (getScrollContainer()) {
-      return renderRefresh(`${prefixCls}-content ${prefixCls}-${direction}`);
+      return renderRefresh(`${prefixCls}-content ${prefixCls}-${this._direction}`);
     }
     return (
       <div
         ref={el => this.containerRef = el}
-        className={classNames(className, prefixCls, `${prefixCls}-${direction}`)}
+        className={classNames(className, prefixCls, `${prefixCls}-${this._direction}`)}
         {...restProps}
       >
         {renderRefresh(`${prefixCls}-content`)}
