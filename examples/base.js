@@ -28,7 +28,7 @@ class App extends React.Component {
         style={{ height: 200, overflow: 'auto', border: '1px solid #ccc' }}
         {...(this.state.switchContainer ? { getScrollContainer: () => document.body } : {}) }
         className="forTest"
-        direction="down"
+        direction="all"
         refreshing={this.state.refreshing}
         onRefresh={() => {
           this.setState({ refreshing: true });

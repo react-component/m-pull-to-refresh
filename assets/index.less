@@ -6,6 +6,7 @@
       overflow: hidden;
     }
     transform-origin: left top 0px;
+    position: relative;
   }
 
   &-transition {
@@ -17,6 +18,9 @@
     text-align: center;
     height: 25px;
     line-height: 25px;
+    position: static;
+    bottom: 0;
+    width: 100%;
   }
 
   &-down .@{pull-to-refresh}-indicator {
@@ -24,6 +28,7 @@
   }
 
   &-up .@{pull-to-refresh}-indicator {
+    position: absolute;
     margin-bottom: -25px;
   }
 }

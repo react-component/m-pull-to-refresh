@@ -58,7 +58,7 @@ see example
 
 | name     | description    | type     | default      |
 |----------|----------------|----------|--------------|
-| direction  | pull direction, can be `up` or `down` | String | `down` |
+| direction  | pull direction, can be `up` or `down` or `all` | String | `down` |
 | distanceToRefresh | distance to pull to refresh | number | 50  |
 | refreshing | Whether the view should be indicating an active refresh | bool | false |
 | onRefresh  | Called when the view starts refreshing. | () => void | - |
