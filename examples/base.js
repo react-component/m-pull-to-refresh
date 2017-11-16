@@ -95,7 +95,7 @@ var App = function (_React$Component) {
               return document.body;
             } } : {}, {
             className: 'forTest',
-            direction: 'down',
+            direction: 'up_down',
             refreshing: this.state.refreshing,
             onRefresh: function onRefresh() {
               _this2.setState({ refreshing: true });

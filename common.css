@@ -1,6 +1,7 @@
 .rmc-pull-to-refresh-content {
   -webkit-transform-origin: left top 0px;
           transform-origin: left top 0px;
+  position: relative;
 }
 .rmc-pull-to-refresh-content-wrapper {
   overflow: hidden;
@@ -15,11 +16,15 @@
   text-align: center;
   height: 25px;
   line-height: 25px;
+  position: static;
+  bottom: 0;
+  width: 100%;
 }
 .rmc-pull-to-refresh-down .rmc-pull-to-refresh-indicator {
   margin-top: -25px;
 }
 .rmc-pull-to-refresh-up .rmc-pull-to-refresh-indicator {
+  position: absolute;
   margin-bottom: -25px;
 }
 
