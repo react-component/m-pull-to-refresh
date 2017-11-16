@@ -86,12 +86,10 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     // 注意：当 direction 为 up 时，当 visible length < content length 时、则看不到效果
     if (!this.state.dragOnEdge) {
       if (this.props.refreshing) {
-        // if (this.props.direction === UP) {
         if (direction === UP) {
           this._lastScreenY = - this.props.distanceToRefresh - 1;
         }
         if (direction === DOWN) {
-        // if (this.props.direction === DOWN) {
           this._lastScreenY = this.props.distanceToRefresh + 1;
         }
         // change dom need after setState
@@ -158,19 +156,19 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     // 使用 pageY 对比有问题
     const _screenY = e.touches[0].screenY;
     let direction = '';
-    if (this.props.direction === UP || this.props.direction === DOWN) {
+    if (this.props.direction === ALL) {
+      // if props.direction = all, auto detect direction when ontouchmove
+      direction = this._startScreenY > _screenY ? UP : DOWN;
+      this.setState({
+        direction,
+      });
+    } else {
       // 拖动方向不符合的不处理
       direction = this.props.direction;
       if (direction === UP && this._startScreenY < _screenY ||
         direction === DOWN && this._startScreenY > _screenY) {
         return;
       }
-    } else {
-      // if props.direction = all, auto detect direction when ontouchmove
-      direction = this._startScreenY > _screenY ? UP : DOWN;
-      this.setState({
-        direction,
-      });
     }
 
     if (this.isEdge(ele, direction)) {
