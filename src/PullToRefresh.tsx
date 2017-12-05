@@ -23,6 +23,20 @@ const DOWN = 'down';
 const UP = 'up';
 const INDICATOR = { activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' };
 
+let supportsPassive = false;
+try {
+  const opts = Object.defineProperty({}, 'passive', {
+    get() {
+      supportsPassive = true;
+    },
+  });
+  window.addEventListener('test', null as any, opts);
+} catch (e) {
+  // empty
+}
+const willPreventDefault = supportsPassive ? { passive: false } : false;
+// const willNotPreventDefault = supportsPassive ? { passive: true } : false;
+
 export default class PullToRefresh extends React.Component<PropsType, any> {
   static defaultProps = {
     prefixCls: 'rmc-pull-to-refresh',
@@ -106,7 +120,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       touchcancel: this.onTouchEnd.bind(this, ele),
     };
     Object.keys(this._to).forEach(key => {
-      ele.addEventListener(key, this._to[key]);
+      ele.addEventListener(key, this._to[key], willPreventDefault);
     });
   }
 
@@ -124,6 +138,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     this._ScreenY = this._startScreenY = e.touches[0].screenY;
     // 一开始 refreshing 为 true 时 this._lastScreenY 有值
     this._lastScreenY = this._lastScreenY || 0;
+    e.stopPropagation();
   }
 
   isEdge = (ele: any, direction: string) => {

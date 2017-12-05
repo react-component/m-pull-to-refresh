@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 class App extends React.Component {
   state = {
     refreshing: false,
-    switchContainer: true,
+    switchContainer: false,
   };
   componentDidMount() {
     // setTimeout(() => { this.setState({ refreshing: true }); }, 10);
@@ -39,7 +39,7 @@ class App extends React.Component {
         indicator={{ deactivate: '下拉' }}
       >
         {[1, 2, 3, 4, 5, 6, 7].map(i =>
-          <div key={i} style={{ textAlign: 'center', padding: 20 }}>item {i}</div>)}
+          <div key={i} style={{ textAlign: 'center', padding: 20 }} onClick={() => alert(1)}>item {i}</div>)}
       </PullToRefresh>
 
       <div dangerouslySetInnerHTML={{
