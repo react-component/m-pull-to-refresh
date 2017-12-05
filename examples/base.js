@@ -56,7 +56,7 @@ var App = function (_React$Component) {
 
     return _ret = (_temp = (_this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       refreshing: false,
-      switchContainer: true
+      switchContainer: false
     }, _temp), __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(_this, _ret);
   }
 
@@ -95,7 +95,7 @@ var App = function (_React$Component) {
               return document.body;
             } } : {}, {
             className: 'forTest',
-            direction: 'up_down',
+            direction: 'down',
             refreshing: this.state.refreshing,
             onRefresh: function onRefresh() {
               _this2.setState({ refreshing: true });
@@ -108,7 +108,9 @@ var App = function (_React$Component) {
           [1, 2, 3, 4, 5, 6, 7].map(function (i) {
             return __WEBPACK_IMPORTED_MODULE_7_react___default.a.createElement(
               'div',
-              { key: i, style: { textAlign: 'center', padding: 20 } },
+              { key: i, style: { textAlign: 'center', padding: 20 }, onClick: function onClick() {
+                  return alert(1);
+                } },
               'item ',
               i
             );
