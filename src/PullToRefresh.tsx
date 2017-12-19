@@ -138,7 +138,6 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     this._ScreenY = this._startScreenY = e.touches[0].screenY;
     // 一开始 refreshing 为 true 时 this._lastScreenY 有值
     this._lastScreenY = this._lastScreenY || 0;
-    e.stopPropagation();
   }
 
   isEdge = (ele: any, direction: string) => {
@@ -177,7 +176,9 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
         this.setState({ dragOnEdge: true });
       }
       e.preventDefault();
-      e.stopPropagation();
+      // add stopPropagation with fastclick will trigger content onClick event. why?
+      // ref https://github.com/ant-design/ant-design-mobile/issues/2141
+      // e.stopPropagation();
 
       const _diff = Math.round(_screenY - this._ScreenY);
       this._ScreenY = _screenY;
