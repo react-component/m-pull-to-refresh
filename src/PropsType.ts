@@ -17,5 +17,5 @@ export interface PropsType {
   prefixCls?: string;
   className?: string;
   style?: React.CSSProperties;
-  damping?: boolean;
+  damping?: string;
 }
