@@ -65,7 +65,7 @@ see example
 | indicator  | indicator config | Object | `{ activate: 'release', deactivate: 'pull', release: 'loading', finish: 'finish' }` |
 | className | additional css class of root dom node | String | - |
 | prefixCls | prefix class | String | 'rmc-pull-to-refresh' |
-| damping | pull damping, can be `on` or `off` | String | 'off' |
+| damping | pull damping, can be `on` or `off` or a number(suggest less than 200) | String or number | 'off' |
 
 ## Test Case
 

@@ -162,8 +162,10 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   }
 
   damping = (dy: number): number => {
-    if (this.props.damping === 'off') { return dy; };
-    if (this._lastScreenY > 100) { return 0; };
+    const { damping } = this.props;
+    if (damping === 'off') { return dy; };
+    const maxPullDistance = damping === 'on' ? 100 : damping;
+    if (this._lastScreenY > maxPullDistance) { return 0; };
     const ratio = Math.abs(this._ScreenY - this._startScreenY) / window.screen.height;
     dy *= (1 - ratio) * 0.4;
     return dy;
