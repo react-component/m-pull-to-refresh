@@ -49,7 +49,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   // https://github.com/yiminghe/zscroller/blob/2d97973287135745818a0537712235a39a6a62a1/src/Scroller.js#L355
   // currSt: `activate` / `deactivate` / `release` / `finish`
   state = {
-    currSt: '',
+    currSt: 'deactivate',
     dragOnEdge: false,
   };
 
@@ -60,6 +60,8 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   _startScreenY: any;
   _lastScreenY: any;
   _timer: any;
+
+  _isMounted = false;
 
   shouldUpdateChildren = false;
 
@@ -81,6 +83,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     setTimeout(() => {
       this.init(this.props.getScrollContainer() || this.containerRef);
       this.triggerPullToRefresh();
+      this._isMounted = true;
     });
   }
 
@@ -92,7 +95,8 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   triggerPullToRefresh = () => {
     // 在初始化时、用代码 自动 触发 pullToRefresh
     // 注意：当 direction 为 up 时，当 visible length < content length 时、则看不到效果
-    if (!this.state.dragOnEdge) {
+    // 添加this._isMounted的判断，否则组建一实例化，currSt就会是finish
+    if (!this.state.dragOnEdge && this._isMounted) {
       if (this.props.refreshing) {
         if (this.props.direction === UP) {
           this._lastScreenY = - this.props.distanceToRefresh - 1;
@@ -173,6 +177,10 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
 
     if (this.isEdge(ele, direction)) {
       if (!this.state.dragOnEdge) {
+        // 当用户开始往上滑的时候isEdge还是false的话，会导致this._ScreenY不是想要的，只有当isEdge为true时，再上滑，才有意义
+        // 下面这行代码解决了上面这个问题
+        this._ScreenY = this._startScreenY = e.touches[0].screenY;
+
         this.setState({ dragOnEdge: true });
       }
       e.preventDefault();
