@@ -43,6 +43,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     getScrollContainer: () => undefined,
     direction: DOWN,
     distanceToRefresh: 25,
+    damping: 'off',
     indicator: INDICATOR as Indicator,
   } as PropsType;
 
@@ -164,6 +165,20 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     }
   }
 
+  damping = (dy: number): number => {
+    const { damping } = this.props;
+    if (damping !== 'on' || typeof damping !== 'number') {
+      return dy;
+    }
+    const maxPullDistance = damping === 'on' ? 100 : damping;
+    if (this._lastScreenY > maxPullDistance) {
+      return 0;
+    }
+    const ratio = Math.abs(this._ScreenY - this._startScreenY) / window.screen.height;
+    dy *= (1 - ratio) * 0.4;
+    return dy;
+  }
+
   onTouchMove = (ele: any, e: any) => {
     // 使用 pageY 对比有问题
     const _screenY = e.touches[0].screenY;
@@ -190,7 +205,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
 
       const _diff = Math.round(_screenY - this._ScreenY);
       this._ScreenY = _screenY;
-      this._lastScreenY += _diff;
+      this._lastScreenY += this.damping(_diff);
 
       this.setContentStyle(this._lastScreenY);
 

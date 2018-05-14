@@ -37,6 +37,7 @@ class App extends React.Component {
           }, 1000);
         }}
         indicator={{ deactivate: '下拉' }}
+        damping={150}
       >
         {[1, 2, 3, 4, 5, 6, 7].map(i =>
           <div key={i} style={{ textAlign: 'center', padding: 20 }} onClick={() => alert(1)}>item {i}</div>)}
