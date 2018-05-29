@@ -1,6 +1,10 @@
 # History
 ----
 
+## 1.0.9
+
+- simplify damping prop
+
 ## 1.0.8
 
 - add custom damping prop
