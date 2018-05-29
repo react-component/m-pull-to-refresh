@@ -43,7 +43,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     getScrollContainer: () => undefined,
     direction: DOWN,
     distanceToRefresh: 25,
-    damping: 'off',
+    damping: 100,
     indicator: INDICATOR as Indicator,
   } as PropsType;
 
@@ -166,16 +166,13 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   }
 
   damping = (dy: number): number => {
-    const { damping } = this.props;
-    if (damping !== 'on' || typeof damping !== 'number') {
-      return dy;
-    }
-    const maxPullDistance = damping === 'on' ? 100 : damping;
-    if (this._lastScreenY > maxPullDistance) {
+    if (Math.abs(this._lastScreenY) > this.props.damping) {
       return 0;
     }
+
     const ratio = Math.abs(this._ScreenY - this._startScreenY) / window.screen.height;
     dy *= (1 - ratio) * 0.4;
+
     return dy;
   }
 
