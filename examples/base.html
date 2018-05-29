@@ -299,7 +299,7 @@ class App extends React.Component {
         style={{ height: 200, overflow: 'auto', border: '1px solid #ccc' }}
         {...(this.state.switchContainer ? { getScrollContainer: () =&gt; document.body } : {}) }
         className="forTest"
-        direction="up"
+        direction="down"
         refreshing={this.state.refreshing}
         onRefresh={() =&gt; {
           this.setState({ refreshing: true });
@@ -308,7 +308,7 @@ class App extends React.Component {
           }, 1000);
         }}
         indicator={{ deactivate: '下拉' }}
-        damping={60}
+        damping={150}
       &gt;
         {[1, 2, 3, 4, 5, 6, 7].map(i =&gt;
           &lt;div key={i} style={{ textAlign: 'center', padding: 20 }} onClick={() =&gt; alert(1)}&gt;item {i}&lt;/div&gt;)}
