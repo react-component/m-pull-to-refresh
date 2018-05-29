@@ -1,14 +1,11 @@
 .rmc-pull-to-refresh-content {
-  -webkit-transform-origin: left top 0px;
-          transform-origin: left top 0px;
+  transform-origin: left top 0px;
 }
 .rmc-pull-to-refresh-content-wrapper {
   overflow: hidden;
 }
 .rmc-pull-to-refresh-transition {
-  transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
 }
 .rmc-pull-to-refresh-indicator {
   color: grey;
