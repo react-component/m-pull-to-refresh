@@ -1969,13 +1969,7 @@ var PullToRefresh = function (_React$Component2) {
             }
         };
         _this2.damping = function (dy) {
-            var damping = _this2.props.damping;
-
-            if (damping !== 'on' || typeof damping !== 'number') {
-                return dy;
-            }
-            var maxPullDistance = damping === 'on' ? 100 : damping;
-            if (_this2._lastScreenY > maxPullDistance) {
+            if (Math.abs(_this2._lastScreenY) > _this2.props.damping) {
                 return 0;
             }
             var ratio = Math.abs(_this2._ScreenY - _this2._startScreenY) / window.screen.height;
@@ -2153,7 +2147,7 @@ PullToRefresh.defaultProps = {
     },
     direction: DOWN,
     distanceToRefresh: 25,
-    damping: 'off',
+    damping: 100,
     indicator: INDICATOR
 };
 

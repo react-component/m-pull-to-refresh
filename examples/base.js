@@ -95,7 +95,7 @@ var App = function (_React$Component) {
               return document.body;
             } } : {}, {
             className: 'forTest',
-            direction: 'down',
+            direction: 'up',
             refreshing: this.state.refreshing,
             onRefresh: function onRefresh() {
               _this2.setState({ refreshing: true });
@@ -104,7 +104,7 @@ var App = function (_React$Component) {
               }, 1000);
             },
             indicator: { deactivate: '下拉' },
-            damping: 150
+            damping: 60
           }),
           [1, 2, 3, 4, 5, 6, 7].map(function (i) {
             return __WEBPACK_IMPORTED_MODULE_7_react___default.a.createElement(
