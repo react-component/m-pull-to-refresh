@@ -1973,7 +1973,7 @@ var PullToRefresh = function (_React$Component2) {
                 return 0;
             }
             var ratio = Math.abs(_this2._ScreenY - _this2._startScreenY) / window.screen.height;
-            dy *= (1 - ratio) * 0.4;
+            dy *= (1 - ratio) * 0.6;
             return dy;
         };
         _this2.onTouchMove = function (ele, e) {
@@ -2088,17 +2088,20 @@ var PullToRefresh = function (_React$Component2) {
         value: function render() {
             var _this4 = this;
 
-            var _a = this.props,
-                className = _a.className,
-                prefixCls = _a.prefixCls,
-                children = _a.children,
-                getScrollContainer = _a.getScrollContainer,
-                direction = _a.direction,
-                onRefresh = _a.onRefresh,
-                refreshing = _a.refreshing,
-                indicator = _a.indicator,
-                distanceToRefresh = _a.distanceToRefresh,
-                restProps = __rest(_a, ["className", "prefixCls", "children", "getScrollContainer", "direction", "onRefresh", "refreshing", "indicator", "distanceToRefresh"]);
+            var props = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props);
+            delete props.damping;
+
+            var className = props.className,
+                prefixCls = props.prefixCls,
+                children = props.children,
+                getScrollContainer = props.getScrollContainer,
+                direction = props.direction,
+                onRefresh = props.onRefresh,
+                refreshing = props.refreshing,
+                indicator = props.indicator,
+                distanceToRefresh = props.distanceToRefresh,
+                restProps = __rest(props, ["className", "prefixCls", "children", "getScrollContainer", "direction", "onRefresh", "refreshing", "indicator", "distanceToRefresh"]);
+
             var renderChildren = __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(StaticRenderer, { shouldUpdate: this.shouldUpdateChildren, render: function render() {
                     return children;
                 } });
@@ -2192,7 +2195,7 @@ module.exports = { "default": __webpack_require__(76), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2016 Jed Watson.
+  Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
@@ -2214,8 +2217,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 			if (argType === 'string' || argType === 'number') {
 				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				classes.push(classNames.apply(null, arg));
+			} else if (Array.isArray(arg) && arg.length) {
+				var inner = classNames.apply(null, arg);
+				if (inner) {
+					classes.push(inner);
+				}
 			} else if (argType === 'object') {
 				for (var key in arg) {
 					if (hasOwn.call(arg, key) && arg[key]) {
@@ -2229,6 +2235,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 
 	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
 		module.exports = classNames;
 	} else if (true) {
 		// register as 'classnames', consistent with npm package name
