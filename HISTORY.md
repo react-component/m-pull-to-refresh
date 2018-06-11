@@ -1,6 +1,12 @@
 # History
 ----
 
+
+## 1.0.10
+
+- remove the unknown-prop warning
+- add sensitivity for pull action
+
 ## 1.0.9
 
 - simplify damping prop

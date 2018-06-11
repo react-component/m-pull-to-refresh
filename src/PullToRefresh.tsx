@@ -171,7 +171,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     }
 
     const ratio = Math.abs(this._ScreenY - this._startScreenY) / window.screen.height;
-    dy *= (1 - ratio) * 0.4;
+    dy *= (1 - ratio) * 0.6;
 
     return dy;
   }
@@ -257,10 +257,14 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   }
 
   render() {
+    const props = { ...this.props };
+
+    delete props.damping;
+
     const {
       className, prefixCls, children, getScrollContainer,
       direction, onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
-    } = this.props;
+    } = props;
 
     const renderChildren = <StaticRenderer
       shouldUpdate={this.shouldUpdateChildren} render={() => children} />;
