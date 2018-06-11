@@ -2,7 +2,7 @@
 ----
 
 
-## 1.0.10
+## 1.0.11
 
 - remove the unknown-prop warning
 - add sensitivity for pull action
