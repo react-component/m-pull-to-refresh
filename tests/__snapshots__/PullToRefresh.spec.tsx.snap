@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic base. 1`] = `
+<div
+  class="rmc-pull-to-refresh rmc-pull-to-refresh-down"
+>
+  <div
+    class="rmc-pull-to-refresh-content-wrapper"
+  >
+    <div
+      class="rmc-pull-to-refresh-content rmc-pull-to-refresh-transition"
+    >
+      <div
+        class="rmc-pull-to-refresh-indicator"
+      >
+        pull
+      </div>
+      <div>
+        <div
+          style="height:50px"
+        >
+          Item 1
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

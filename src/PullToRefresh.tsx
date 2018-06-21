@@ -1,5 +1,5 @@
-import React from 'react';
-import classNames from 'classnames';
+import * as React from 'react';
+import * as classNames from 'classnames';
 import { PropsType, Indicator } from './PropsType';
 
 class StaticRenderer extends React.Component<any, any> {

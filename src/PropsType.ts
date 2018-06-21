@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 export interface Indicator {
   activate?: React.ReactNode;
@@ -8,14 +8,14 @@ export interface Indicator {
 }
 
 export interface PropsType {
-  getScrollContainer: () => React.ReactNode;
-  direction: 'down' | 'up';
+  getScrollContainer?: () => React.ReactNode;
+  direction?: 'down' | 'up';
   refreshing?: boolean;
-  distanceToRefresh: number;
-  onRefresh: () => void;
-  indicator: Indicator;
+  distanceToRefresh?: number;
+  onRefresh?: () => void;
+  indicator?: Indicator;
   prefixCls?: string;
   className?: string;
   style?: React.CSSProperties;
-  damping: number;
+  damping?: number;
 }
