@@ -64,6 +64,7 @@
     }
   },
   "dependencies": {
+    "babel-runtime": "6.x",
     "classnames": "^2.2.5"
   },
   "devDependencies": {
@@ -74,7 +75,6 @@
     "@types/jest": "^20.0.7",
     "@types/react": "^16.0.0",
     "@types/react-dom": "^16.0.0",
-    "babel-runtime": "6.x",
     "coveralls": "^2.13.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.1.1",
