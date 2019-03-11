@@ -68,7 +68,7 @@
     "@types/classnames": "^2.2.3",
     "@types/enzyme": "^2.8.6",
     "@types/enzyme-to-json": "^1.5.0",
-    "@types/jest": "^20.0.7",
+    "@types/jest": "^24.0.11",
     "@types/react": "^15.0.27",
     "@types/react-dom": "^15.5.0",
     "coveralls": "^2.13.1",
