@@ -1,0 +1,7 @@
+{
+  "extends": "rc-tools/config/tslint.json",
+  "rules": {
+    "member-access": [true, "no-public"],
+    "variable-name": [false]
+  }
+}

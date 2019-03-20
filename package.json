@@ -38,12 +38,14 @@
     "prepublishOnly": "rc-tools run guard",
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint --no-js-lint",
-    "test": "jest",
-    "coverage": "jest --coverage"
+    "test": "tsc && jest",
+    "coverage": "npm run test -- --coverage"
   },
   "jest": {
+    "setupFiles": [
+      "./tests/setup.js"
+    ],
     "testMatch": [
-      "**/__tests__/**/*.ts?(x)",
       "**/?(*.)(spec|test).ts?(x)"
     ],
     "coverageDirectory": "./coverage/",
@@ -65,21 +67,19 @@
     "classnames": "^2.2.5"
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.3",
-    "@types/enzyme": "^2.8.6",
-    "@types/enzyme-to-json": "^1.5.0",
-    "@types/jest": "^20.0.7",
-    "@types/react": "^15.0.27",
-    "@types/react-dom": "^15.5.0",
+    "@types/classnames": "^2.2.7",
+    "@types/enzyme": "^3.9.0",
+    "@types/jest": "^24.0.11",
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.2",
     "coveralls": "^2.13.1",
-    "enzyme": "^2.9.1",
-    "enzyme-to-json": "^1.5.1",
-    "jest": "^20.0.4",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "jest": "^24.5.0",
     "pre-commit": "1.x",
-    "rc-tools": "6.x",
+    "rc-tools": "9.x",
     "react": "16.x",
-    "react-dom": "16.x",
-    "react-test-renderer": "^15.5.0"
+    "react-dom": "16.x"
   },
   "pre-commit": [
     "lint"
