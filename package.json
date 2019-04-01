@@ -79,7 +79,7 @@
     "rc-tools": "6.x",
     "react": "16.x",
     "react-dom": "16.x",
-    "react-test-renderer": "^15.5.0"
+    "react-test-renderer": "^16.8.6"
   },
   "pre-commit": [
     "lint"
