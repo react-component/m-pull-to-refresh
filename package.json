@@ -24,6 +24,7 @@
   "license": "MIT",
   "main": "./lib/index",
   "module": "./es/index",
+  "types": "./lib/index.d.ts",
   "config": {
     "port": 8899
   },
