@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface Indicator {
+export interface IIndicator {
   activate?: React.ReactNode;
   deactivate?: React.ReactNode;
   release?: React.ReactNode;
@@ -13,7 +13,7 @@ export interface IPropsType {
   direction?: 'down' | 'up';
   refreshing?: boolean;
   distanceToRefresh?: number;
-  indicator?: Indicator;
+  indicator?: IIndicator;
   prefixCls?: string;
   className?: string;
   damping?: number;

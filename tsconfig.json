@@ -6,7 +6,6 @@
     "target": "es6",
     "noImplicitAny": false,
     "noUnusedLocals": true,
-    "noEmit": true,
     "baseUrl": "src"
   }
 }
