@@ -11,10 +11,10 @@
   "homepage": "https://github.com/react-component/m-pull-to-refresh",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-component/m-tabs.git"
+    "url": "https://github.com/react-component/m-pull-to-refresh.git"
   },
   "bugs": {
-    "url": "https://github.com/react-component/m-tabs/issues"
+    "url": "https://github.com/react-component/m-pull-to-refresh/issues"
   },
   "files": [
     "lib",
