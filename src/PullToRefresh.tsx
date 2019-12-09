@@ -157,7 +157,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       }
     }
     if (direction === UP) {
-      return ele.scrollHeight - ele.scrollTop === ele.clientHeight;
+      return ele.scrollHeight - ele.scrollTop <= ele.clientHeight;
     }
     if (direction === DOWN) {
       return ele.scrollTop <= 0;
