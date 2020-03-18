@@ -1,7 +1,15 @@
+import React from 'react';
 import classNames from 'classnames';
-import * as React from 'react';
-import { IPropsType } from './PropsType';
-import StaticRenderer from './StaticRenderer';
+import { PropsType, Indicator } from './PropsType';
+
+class StaticRenderer extends React.Component<any, any> {
+  shouldComponentUpdate(nextProps: any) {
+    return nextProps.shouldUpdate;
+  }
+  render() {
+    return <div>{this.props.render()}</div>;
+  }
+}
 
 function setTransform(nodeStyle: any, value: any) {
   nodeStyle.transform = value;
@@ -29,27 +37,20 @@ try {
 const willPreventDefault = supportsPassive ? { passive: false } : false;
 // const willNotPreventDefault = supportsPassive ? { passive: true } : false;
 
-type ICurrSt = 'activate' | 'deactivate' | 'release' | 'finish';
-
-interface IState {
-  currSt: ICurrSt;
-  dragOnEdge: boolean;
-}
-
-export default class PullToRefresh extends React.Component<IPropsType, IState> {
+export default class PullToRefresh extends React.Component<PropsType, any> {
   static defaultProps = {
     prefixCls: 'rmc-pull-to-refresh',
     getScrollContainer: () => undefined,
     direction: DOWN,
     distanceToRefresh: 25,
     damping: 100,
-    indicator: INDICATOR,
-  };
+    indicator: INDICATOR as Indicator,
+  } as PropsType;
 
   // https://github.com/yiminghe/zscroller/blob/2d97973287135745818a0537712235a39a6a62a1/src/Scroller.js#L355
   // currSt: `activate` / `deactivate` / `release` / `finish`
   state = {
-    currSt: 'deactivate' as ICurrSt,
+    currSt: 'deactivate',
     dragOnEdge: false,
   };
 
@@ -162,8 +163,6 @@ export default class PullToRefresh extends React.Component<IPropsType, IState> {
     if (direction === DOWN) {
       return ele.scrollTop <= 0;
     }
-    // 补全 branch, test 才过的了，但是实际上代码永远不会走到这里，这里为了保证代码的一致性，返回 undefined
-    return undefined;
   }
 
   damping = (dy: number): number => {
@@ -264,7 +263,7 @@ export default class PullToRefresh extends React.Component<IPropsType, IState> {
 
     const {
       className, prefixCls, children, getScrollContainer,
-      direction, onRefresh, refreshing, indicator, distanceToRefresh, ...restProps
+      direction, onRefresh, refreshing, indicator, distanceToRefresh, ...restProps,
     } = props;
 
     const renderChildren = <StaticRenderer
@@ -277,7 +276,7 @@ export default class PullToRefresh extends React.Component<IPropsType, IState> {
           <div className={cla} ref={el => this.contentRef = el}>
             {direction === UP ? renderChildren : null}
             <div className={`${prefixCls}-indicator`}>
-              {indicator[this.state.currSt] || INDICATOR[this.state.currSt]}
+              {(indicator as any)[this.state.currSt] || (INDICATOR as any)[this.state.currSt]}
             </div>
             {direction === DOWN ? renderChildren : null}
           </div>

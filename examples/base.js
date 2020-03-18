@@ -1,7 +1,7 @@
 import '../assets/index.less';
 import PullToRefresh from '../src';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 class App extends React.Component {
   state = {
