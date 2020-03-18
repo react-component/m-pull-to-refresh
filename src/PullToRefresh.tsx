@@ -45,6 +45,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     distanceToRefresh: 25,
     damping: 100,
     indicator: INDICATOR as Indicator,
+    scale: 0.6,
   } as PropsType;
 
   // https://github.com/yiminghe/zscroller/blob/2d97973287135745818a0537712235a39a6a62a1/src/Scroller.js#L355
@@ -171,7 +172,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
     }
 
     const ratio = Math.abs(this._ScreenY - this._startScreenY) / window.screen.height;
-    dy *= (1 - ratio) * 0.6;
+    dy *= (1 - ratio) * this.props.scale;
 
     return dy;
   }
