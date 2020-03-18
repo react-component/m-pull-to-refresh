@@ -38,7 +38,7 @@
     "prepublishOnly": "rc-tools run guard",
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint --no-js-lint",
-    "test": "jest -u",
+    "test": "jest",
     "coverage": "jest --coverage"
   },
   "jest": {
