@@ -66,6 +66,7 @@ see example
 | className | additional css class of root dom node | String | - |
 | prefixCls | prefix class | String | 'rmc-pull-to-refresh' |
 | damping | pull damping, suggest less than 200 | number | 100 |
+| scale | damping scale | number | 0.6 |
 
 ## Test Case
 

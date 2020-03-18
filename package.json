@@ -79,7 +79,8 @@
     "pre-commit": "1.x",
     "rc-tools": "9.x",
     "react": "16.x",
-    "react-dom": "16.x"
+    "react-dom": "16.x",
+    "typescript": "^3.8.3"
   },
   "pre-commit": [
     "lint"

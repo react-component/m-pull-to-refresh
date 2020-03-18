@@ -17,5 +17,6 @@ export interface IPropsType {
   prefixCls?: string;
   className?: string;
   damping?: number;
+  scale?: number;
   style?: React.CSSProperties;
 }

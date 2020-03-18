@@ -5,6 +5,7 @@ initialize {
   "0": Object {
     "attribs": Object {
       "class": "rmc rmc rmc-up",
+      "scale": "0.6",
       "style": "width:100px",
     },
     "children": Array [
@@ -185,10 +186,12 @@ initialize {
     "type": "tag",
     "x-attribsNamespace": Object {
       "class": undefined,
+      "scale": undefined,
       "style": undefined,
     },
     "x-attribsPrefix": Object {
       "class": undefined,
+      "scale": undefined,
       "style": undefined,
     },
   },
@@ -208,6 +211,7 @@ initialize {
   "0": Object {
     "attribs": Object {
       "class": "rmc-pull-to-refresh rmc-pull-to-refresh-down",
+      "scale": "0.6",
     },
     "children": Array [
       Object {
@@ -399,9 +403,11 @@ initialize {
     "type": "tag",
     "x-attribsNamespace": Object {
       "class": undefined,
+      "scale": undefined,
     },
     "x-attribsPrefix": Object {
       "class": undefined,
+      "scale": undefined,
     },
   },
   "_root": [Circular],
