@@ -1,6 +1,10 @@
 # History
-----
 
+---
+
+## 1.0.12
+
+- add props.scale for damping
 
 ## 1.0.11
 
