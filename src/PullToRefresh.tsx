@@ -152,14 +152,16 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
       // In chrome61 `document.body.scrollTop` is invalid
       const scrollNode = document.scrollingElement ? document.scrollingElement : document.body;
       if (direction === UP) {
-        return scrollNode.scrollHeight - scrollNode.scrollTop <= window.innerHeight;
+        let __height = Math.abs(ele.scrollHeight - ele.scrollTop - ele.clientHeight)
+        return __height>=0 && __height<=1;
       }
       if (direction === DOWN) {
         return scrollNode.scrollTop <= 0;
       }
     }
     if (direction === UP) {
-      return ele.scrollHeight - ele.scrollTop === ele.clientHeight;
+        let __height = Math.abs(ele.scrollHeight - ele.scrollTop - ele.clientHeight)
+        return __height>=0 && __height<=1;
     }
     if (direction === DOWN) {
       return ele.scrollTop <= 0;
