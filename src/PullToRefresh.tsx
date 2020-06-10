@@ -60,6 +60,8 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   _to: any;
   _ScreenY: any;
   _startScreenY: any;
+  // X 横向判断用于锁定滑动方向
+  _startScreenX: any;
   _lastScreenY: any;
   _timer: any;
 
@@ -142,6 +144,7 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
 
   onTouchStart = (_ele: any, e: any) => {
     this._ScreenY = this._startScreenY = e.touches[0].screenY;
+    this._startScreenX = e.touches[0].screenX;
     // 一开始 refreshing 为 true 时 this._lastScreenY 有值
     this._lastScreenY = this._lastScreenY || 0;
   }
@@ -167,12 +170,12 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   }
 
   damping = (dy: number): number => {
-    if (Math.abs(this._lastScreenY) > this.props.damping) {
+    if (Math.abs(this._lastScreenY) > this.props.damping!) {
       return 0;
     }
 
     const ratio = Math.abs(this._ScreenY - this._startScreenY) / window.screen.height;
-    dy *= (1 - ratio) * this.props.scale;
+    dy *= (1 - ratio) * this.props.scale!;
 
     return dy;
   }
@@ -180,7 +183,13 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
   onTouchMove = (ele: any, e: any) => {
     // 使用 pageY 对比有问题
     const _screenY = e.touches[0].screenY;
+    const _screenX = e.touches[0].screenX;
     const { direction } = this.props;
+
+    // 横向滑动不处理
+    if (Math.abs(_screenX - this._startScreenX) > 20 * window.devicePixelRatio) {
+      return;
+    }
 
     // 拖动方向不符合的不处理
     if (direction === UP && this._startScreenY < _screenY ||
