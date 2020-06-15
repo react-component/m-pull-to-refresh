@@ -2,6 +2,10 @@
 
 ---
 
+## 1.0.13
+
+- prevent pull if x changed greater than 20rpx
+
 ## 1.0.12
 
 - add props.scale for damping
