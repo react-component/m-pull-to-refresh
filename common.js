@@ -1614,6 +1614,7 @@ var PullToRefresh = function (_React$Component2) {
         };
         _this2.onTouchStart = function (_ele, e) {
             _this2._ScreenY = _this2._startScreenY = e.touches[0].screenY;
+            _this2._startScreenX = e.touches[0].screenX;
             // 一开始 refreshing 为 true 时 this._lastScreenY 有值
             _this2._lastScreenY = _this2._lastScreenY || 0;
         };
@@ -1647,9 +1648,14 @@ var PullToRefresh = function (_React$Component2) {
         _this2.onTouchMove = function (ele, e) {
             // 使用 pageY 对比有问题
             var _screenY = e.touches[0].screenY;
+            var _screenX = e.touches[0].screenX;
             var direction = _this2.props.direction;
-            // 拖动方向不符合的不处理
+            // 横向滑动不处理
 
+            if (Math.abs(_screenX - _this2._startScreenX) > 20 * window.devicePixelRatio) {
+                return;
+            }
+            // 拖动方向不符合的不处理
             if (direction === UP && _this2._startScreenY < _screenY || direction === DOWN && _this2._startScreenY > _screenY) {
                 return;
             }
