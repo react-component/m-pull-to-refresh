@@ -78,7 +78,7 @@
     "pre-commit": "1.x",
     "rc-tools": "6.x",
     "react": "16.x",
-    "react-dom": "16.x",
+    "react-dom": "17.x",
     "react-test-renderer": "^15.5.0"
   },
   "pre-commit": [
