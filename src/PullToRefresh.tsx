@@ -205,7 +205,11 @@ export default class PullToRefresh extends React.Component<PropsType, any> {
 
         this.setState({ dragOnEdge: true });
       }
-      e.preventDefault();
+      // 解决移动端 cancelable=false 导致页面渲染白屏问题
+      // ref https://github.com/react-component/m-pull-to-refresh/issues/239
+      if(e.cancelable){
+        e.preventDefault();
+      }
       // add stopPropagation with fastclick will trigger content onClick event. why?
       // ref https://github.com/ant-design/ant-design-mobile/issues/2141
       // e.stopPropagation();
